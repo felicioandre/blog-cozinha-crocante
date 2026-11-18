@@ -59,8 +59,6 @@ TEMPEROS = ["sal", "pimenta-do-reino", "azeite", "óleo", "orégano", "canela", 
 
 LOJAS = [
     ("ml", "Mercado Livre", "ml", lambda q: "https://lista.mercadolivre.com.br/" + urllib.parse.quote(q).replace("%20", "-")),
-    ("amazon", "Amazon", "az", lambda q: "https://www.amazon.com.br/s?k=" + urllib.parse.quote_plus(q)),
-    ("shopee", "Shopee", "sh", lambda q: "https://shopee.com.br/search?keyword=" + urllib.parse.quote(q)),
 ]
 
 
@@ -365,7 +363,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 {gaveta}
 <footer>
   <div class="wrap">
-    <p class="disc" id="sobre"><strong>Aviso de afiliados:</strong> alguns links deste site são de afiliados (Mercado Livre, Amazon e Shopee). Se você comprar por eles, posso receber uma comissão, sem nenhum custo extra para você. Isso ajuda a manter o {esc(NOME)} no ar.</p>
+    <p class="disc" id="sobre"><strong>Aviso de afiliados:</strong> alguns links deste site são de afiliados (Mercado Livre). Se você comprar por eles, posso receber uma comissão, sem nenhum custo extra para você. Isso ajuda a manter o {esc(NOME)} no ar.</p>
     <p>Preços, ofertas e disponibilidade mudam o tempo todo e são definidos pelas lojas; confira sempre na página do produto antes de comprar.</p>
     <p class="saudade">Feito com saudade dos tempos de recado, comunidade e foto com flash estourado. 💙</p>
     <p>Receitas originais do {esc(NOME)}. Tempos e temperaturas são aproximados e variam conforme o aparelho; ajuste ao seu equipamento. Cozinhe carnes até o ponto seguro (frango: 74 °C no centro).</p>
