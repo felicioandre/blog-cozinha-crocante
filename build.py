@@ -172,7 +172,7 @@ def _quebrar(d, texto, fonte, largura):
     return linhas
 
 
-def gerar_card(titulo, cor, linha_meta, rotulo, destino):
+def gerar_card(titulo, cor, linha_meta, rotulo, destino, fundo=None):
     """Cria uma imagem 1200x630 (formato ideal para WhatsApp, Facebook, X)."""
     from PIL import Image, ImageDraw, ImageFont
     W, H = 1200, 630
@@ -180,15 +180,25 @@ def gerar_card(titulo, cor, linha_meta, rotulo, destino):
     bg = _rgb(cor)
     tomate, tinta = _rgb(COR), (43, 33, 24)
     img = Image.new("RGB", (W, H), bg)
-    d = ImageDraw.Draw(img)
-    d.ellipse((W - 560, -180, W + 160, 540), fill=_escurecer(bg, 0.94))
-    d.ellipse((W - 420, 250, W + 80, 750), fill=_escurecer(bg, 0.89))
+    if fundo:
+        from PIL import ImageOps
+        foto = ImageOps.fit(Image.open(fundo).convert("RGB"), (W, H), Image.LANCZOS)
+        # degradê escuro (forte à esquerda, onde fica o texto) para garantir leitura
+        veu = Image.new("L", (W, H))
+        veu.putdata([int(215 - 120 * min(1, x / W)) for _ in range(H) for x in range(W)])
+        img = Image.composite(Image.new("RGB", (W, H), (20, 14, 9)), foto, veu)
+        tinta = (255, 255, 255)
+        d = ImageDraw.Draw(img)
+    else:
+        d = ImageDraw.Draw(img)
+        d.ellipse((W - 560, -180, W + 160, 540), fill=_escurecer(bg, 0.94))
+        d.ellipse((W - 420, 250, W + 80, 750), fill=_escurecer(bg, 0.89))
     d.rectangle((0, 0, 22, H), fill=tomate)
 
     marca = ImageFont.truetype(str(fonts / "DejaVuSans-Bold.ttf"), 30)
     d.text((80, 62), NOME.upper(), font=marca, fill=tomate)
     if rotulo:
-        d.text((80, 108), rotulo.upper(), font=ImageFont.truetype(str(fonts / "DejaVuSans.ttf"), 24), fill=_escurecer(tinta, 1.8))
+        d.text((80, 108), rotulo.upper(), font=ImageFont.truetype(str(fonts / "DejaVuSans.ttf"), 24), fill=_escurecer(tinta, 1.8) if not fundo else (230, 220, 210))
 
     largura = W - 80 - 200
     for tam in (88, 76, 66, 56, 48):
@@ -256,7 +266,7 @@ def lateral_esq():
         f'<span class="com-nome">{esc(c[0])}</span><span class="com-n">{sum(1 for r in posts if k in r["tags"])} receitas</span></a>'
         for k, c in CATEGORIAS.items())
     return f"""<section class="box perfil">
-  <div class="foto" aria-hidden="true">🍟</div>
+  <div class="foto"><img src="{url('/assets/logo.png')}?v={hash_arquivo(STATIC / 'logo.png')}" alt="Logo {esc(NOME)}"></div>
   <h2 class="nome">{esc(NOME)}</h2>
   <p class="frase">“{esc(SITE.get('slogan', ''))}”</p>
   <ul class="menu">{menu}</ul>
@@ -336,6 +346,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 <meta name="twitter:title" content="{esc(titulo)}">
 <meta name="twitter:description" content="{esc(descricao)}">
 <meta name="twitter:image" content="{esc(og_image)}">
+<link rel="preload" href="{url('/assets/comfortaa-700.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{css}">
 <script>window.SITE={json.dumps({"base": BASE})};</script>
 {ld}
@@ -343,7 +354,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="{url('/')}"><span class="logo-ico" aria-hidden="true">🍟</span>cozinha<b>crocante</b></a>
+    <a class="logo" href="{url('/')}"><img class="logo-img" src="{url('/assets/logo.png')}?v={hash_arquivo(STATIC / 'logo.png')}" alt="" width="30" height="34"><span>cozinha<b>crocante</b></span></a>
     <nav aria-label="Categorias">{nav}</nav>
   </div>
 </header>
@@ -514,7 +525,7 @@ def pagina_receita(r, todas, aff, imagem_og):
         ],
     }]
     return pagina(titulo=f"{r['titulo']} — {NOME}", descricao=r["resumo"], caminho=caminho, corpo=corpo,
-                  og_image=imagem_og, og_dim=not r.get("imagem"), og_tipo="article", og_alt=r["titulo"], jsonld=jsonld)
+                  og_image=imagem_og, og_dim=True, og_tipo="article", og_alt=r["titulo"], jsonld=jsonld)
 
 
 # ----------------------------------------------------------------- cabeçalhos (Cloudflare Pages)
@@ -589,11 +600,12 @@ def main():
 
     # páginas das receitas
     for r in posts:
-        if r.get("imagem"):
+        if r.get("imagem") and not tem_pillow:
             og = url_abs("/img/" + r["imagem"])
         elif tem_pillow:
             rotulo = " · ".join(CATEGORIAS[t][0] for t in r["tags"])
-            gerar_card(r["titulo"], r["cor"], f"{r['tempo']}  •  {r['porcoes']}", rotulo, DIST / "og" / f"{r['slug']}.png")
+            fundo = ROOT / "img" / r["imagem"] if r.get("imagem") else None
+            gerar_card(r["titulo"], r["cor"], f"{r['tempo']}  •  {r['porcoes']}", rotulo, DIST / "og" / f"{r['slug']}.png", fundo)
             og = url_abs(f"/og/{r['slug']}.png")
         else:
             og = og_site
