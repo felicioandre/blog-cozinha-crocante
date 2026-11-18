@@ -1,0 +1,95 @@
+name: Publicar o site
+
+# Destino do deploy, definido em Settings > Secrets and variables > Actions > Variables:
+#   DEPLOY_TARGET = github      (padrão, se a variável não existir) -> GitHub Pages
+#   DEPLOY_TARGET = cloudflare                                      -> Cloudflare Pages
+#
+# GitHub Pages + Cloudflare na frente: defina também a variável CLOUDFLARE_ZONE_ID e o secret
+# CLOUDFLARE_API_TOKEN. Depois de cada deploy o cache do Cloudflare é limpo automaticamente.
+# Detalhes no README (seção "CDN e cache").
+
+on:
+  push:
+    branches: [main]
+  # Roda todo dia às 07:00 (horário de Brasília) para publicar receitas agendadas
+  # (receitas com "publicado" em uma data futura só entram no site nesse dia).
+  schedule:
+    - cron: "0 10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  BUILD_ID: ${{ github.run_id }}.${{ github.run_attempt }}
+
+jobs:
+  # ---------------------------------------------------------------- GitHub Pages
+  build-github:
+    if: ${{ vars.DEPLOY_TARGET != 'cloudflare' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - name: Gerar o site
+        run: python build.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy-github:
+    needs: build-github
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Limpa o cache do Cloudflare (só se CLOUDFLARE_ZONE_ID e CLOUDFLARE_API_TOKEN estiverem configurados)
+  purge-cloudflare:
+    needs: deploy-github
+    if: ${{ vars.CLOUDFLARE_ZONE_ID != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Esperar o deploy e limpar o cache
+        env:
+          CLOUDFLARE_ZONE_ID: ${{ vars.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          export SITE_URL="$(python3 -c 'import json;print(json.load(open("site.json"))["url"])')"
+          export BASE_PATH="$(python3 -c 'import json;print(json.load(open("site.json")).get("base",""))')"
+          python3 scripts/purge_cloudflare.py
+
+  # ---------------------------------------------------------------- Cloudflare Pages
+  deploy-cloudflare:
+    if: ${{ vars.DEPLOY_TARGET == 'cloudflare' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - name: Gerar o site (com cabeçalhos de cache do Cloudflare Pages)
+        env:
+          DEPLOY_TARGET: cloudflare
+        run: python build.py
+      - name: Publicar no Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ vars.CLOUDFLARE_PAGES_PROJECT }} --branch=main
