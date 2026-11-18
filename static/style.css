@@ -8,6 +8,7 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 Verdana,Tahoma,'DejaVu Sans',sans-serif}
   @font-face{font-family:'Comfortaa';font-style:normal;font-weight:700;font-display:swap;src:url(comfortaa-700.woff2) format('woff2')}
+  @font-face{font-family:'Font Awesome 6 Brands';font-style:normal;font-weight:400;font-display:swap;src:url(fa-brands-400.woff2) format('woff2')}
   a{color:inherit}
   h1,h2,h3{font-family:Verdana,Tahoma,'DejaVu Sans',sans-serif;line-height:1.25;margin:0}
   .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
@@ -195,6 +196,11 @@
   .sbtn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:6px 14px;font:500 13.5px Verdana,Tahoma,sans-serif;text-decoration:none;cursor:pointer}
   .sbtn:hover{border-color:var(--ink)}
   .sbtn[hidden]{display:none}
+  .sbtn.ico{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0}
+  .sbtn.ico i{font:400 18px/1 'Font Awesome 6 Brands';font-style:normal}
+  .sbtn.ico:hover{color:var(--ink)}
+  .sbtn.ico:hover i{transform:scale(1.15)}
+  .sbtn .fa-whatsapp:before{content:'\f232'}.sbtn .fa-facebook:before{content:'\f09a'}.sbtn .fa-x-twitter:before{content:'\e61b'}.sbtn .fa-pinterest:before{content:'\f0d2'}
   .related{margin-bottom:56px}
   .related h2{font-size:26px;margin-bottom:16px}
   .related .grid{padding-bottom:0}
@@ -237,6 +243,8 @@
   .video{font-size:12px;color:var(--link)}
   .sbtn{border-radius:3px;font-size:11.5px;padding:4px 10px;color:var(--link);background:var(--faixa)}
   .sbtn:hover{border-color:var(--blue)}
+  .sbtn.ico{width:30px;height:30px;padding:0}
+  .sbtn.ico i{font-size:15px}
   .share{font-size:12px}
   .related{margin-bottom:0}
   .related .box-c{padding:10px}

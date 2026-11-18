@@ -347,6 +347,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 <meta name="twitter:description" content="{esc(descricao)}">
 <meta name="twitter:image" content="{esc(og_image)}">
 <link rel="preload" href="{url('/assets/comfortaa-700.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{url('/assets/fa-brands-400.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{css}">
 <script>window.SITE={json.dumps({"base": BASE})};</script>
 {ld}
@@ -454,10 +455,10 @@ def pagina_receita(r, todas, aff, imagem_og):
     texto = f'{r["titulo"]} — {NOME}'
     compartilhar = f"""<div class="share" data-url="{esc(canon)}" data-title="{esc(texto)}">
             <span>Compartilhar:</span>
-            <a class="sbtn" href="https://wa.me/?text={q(texto + ' ' + canon)}" target="_blank" rel="noopener">WhatsApp</a>
-            <a class="sbtn" href="https://www.facebook.com/sharer/sharer.php?u={q(canon, safe='')}" target="_blank" rel="noopener">Facebook</a>
-            <a class="sbtn" href="https://twitter.com/intent/tweet?url={q(canon, safe='')}&amp;text={q(texto)}" target="_blank" rel="noopener">X</a>
-            <a class="sbtn" href="https://pinterest.com/pin/create/button/?url={q(canon, safe='')}&amp;media={q(imagem_og, safe='')}&amp;description={q(r['titulo'])}" target="_blank" rel="noopener">Pinterest</a>
+            <a class="sbtn ico" href="https://wa.me/?text={q(texto + ' ' + canon)}" target="_blank" rel="noopener" aria-label="Compartilhar no WhatsApp" title="WhatsApp"><i class="fa-whatsapp" aria-hidden="true"></i></a>
+            <a class="sbtn ico" href="https://www.facebook.com/sharer/sharer.php?u={q(canon, safe='')}" target="_blank" rel="noopener" aria-label="Compartilhar no Facebook" title="Facebook"><i class="fa-facebook" aria-hidden="true"></i></a>
+            <a class="sbtn ico" href="https://twitter.com/intent/tweet?url={q(canon, safe='')}&amp;text={q(texto)}" target="_blank" rel="noopener" aria-label="Compartilhar no X" title="X"><i class="fa-x-twitter" aria-hidden="true"></i></a>
+            <a class="sbtn ico" href="https://pinterest.com/pin/create/button/?url={q(canon, safe='')}&amp;media={q(imagem_og, safe='')}&amp;description={q(r['titulo'])}" target="_blank" rel="noopener" aria-label="Compartilhar no Pinterest" title="Pinterest"><i class="fa-pinterest" aria-hidden="true"></i></a>
             <button class="sbtn" type="button" data-copiar>Copiar link</button>
             <button class="sbtn" type="button" data-nativo hidden>Mais…</button>
           </div>"""
