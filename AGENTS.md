@@ -13,13 +13,10 @@ Blog de receitas rápidas (air fryer e frigideira), monetizado com afiliados.
 - Nunca remova links de afiliado existentes
 - Antes de alterar a estrutura do `posts.json`, mostre o que vai mudar
 - Sempre crie uma branch nova a partir da main atualizada.
+- Sempre faça commits utilizando o padrão commitizen
 
 ## Ambiente
 - Windows 11 + WSL (Ubuntu); rode comandos no WSL
-
- CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Visão geral
 
