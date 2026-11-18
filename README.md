@@ -18,7 +18,7 @@ A busca por ingredientes continua no navegador, lendo `busca.json` (índice leve
 
 ```
 posts.json          receitas (fonte única). É o único arquivo que você edita no dia a dia
-affiliates.json     links de afiliado por produto (Mercado Livre, Amazon, Shopee)
+affiliates.json     links de afiliado por produto (por ora só Mercado Livre)
 site.json           nome, domínio (url) e base do site
 build.py            gerador do site
 static/             CSS, JS, favicon e fontes usadas nas imagens de compartilhamento
@@ -88,7 +88,7 @@ Para conferir os dados sem gerar nada: `python3 build.py --check`. O build para 
 
 ## Links de afiliado
 
-Em `affiliates.json`, cada produto tem os campos `ml`, `amazon` e `shopee`. Cole o link gerado em cada programa.
+Em `affiliates.json`, cada produto tem o campo `ml`. Cole o link gerado no programa de afiliados do Mercado Livre.
 Campo vazio = botão leva para uma busca comum na loja (sem comissão). O build lista no final os produtos sem nenhum link.
 
 ## Testar no seu computador

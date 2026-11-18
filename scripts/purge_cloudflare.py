@@ -12,7 +12,7 @@ cedo demais, ele busca a versão ANTIGA na origem e guarda de novo. Por isso o s
      Se ainda estiver velha, espera, limpa de novo e confere outra vez.
 
 Variáveis de ambiente:
-  SITE_URL, BASE_PATH      site publicado (ex.: https://cozinhacrocante.com.br e "")
+  SITE_URL, BASE_PATH      site publicado (ex.: https://cozinhacrocante.com e "")
   BUILD_ID                 id do build atual (o mesmo usado no build.py)
   CLOUDFLARE_ZONE_ID       ID da zona (Overview do domínio, no painel do Cloudflare)
   CLOUDFLARE_API_TOKEN     token com permissão Zone > Cache Purge > Purge

@@ -59,8 +59,6 @@ TEMPEROS = ["sal", "pimenta-do-reino", "azeite", "óleo", "orégano", "canela", 
 
 LOJAS = [
     ("ml", "Mercado Livre", "ml", lambda q: "https://lista.mercadolivre.com.br/" + urllib.parse.quote(q).replace("%20", "-")),
-    ("amazon", "Amazon", "az", lambda q: "https://www.amazon.com.br/s?k=" + urllib.parse.quote_plus(q)),
-    ("shopee", "Shopee", "sh", lambda q: "https://shopee.com.br/search?keyword=" + urllib.parse.quote(q)),
 ]
 
 
@@ -321,7 +319,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 <title>{esc(titulo)}</title>
 <meta name="description" content="{esc(descricao)}">
 <link rel="canonical" href="{esc(canonical)}">
-{'<meta name="robots" content="noindex">' if noindex else ''}
+{'<meta name="robots" content="noindex">' if noindex else '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">'}
 <meta name="theme-color" content="{esc(COR)}">
 <link rel="icon" href="{url('/assets/favicon.svg')}?v={hash_arquivo(STATIC / 'favicon.svg')}" type="image/svg+xml">
 <meta name="build-id" content="{esc(BUILD_ID)}">
@@ -365,7 +363,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 {gaveta}
 <footer>
   <div class="wrap">
-    <p class="disc" id="sobre"><strong>Aviso de afiliados:</strong> alguns links deste site são de afiliados (Mercado Livre, Amazon e Shopee). Se você comprar por eles, posso receber uma comissão, sem nenhum custo extra para você. Isso ajuda a manter o {esc(NOME)} no ar.</p>
+    <p class="disc" id="sobre"><strong>Aviso de afiliados:</strong> alguns links deste site são de afiliados (Mercado Livre). Se você comprar por eles, posso receber uma comissão, sem nenhum custo extra para você. Isso ajuda a manter o {esc(NOME)} no ar.</p>
     <p>Preços, ofertas e disponibilidade mudam o tempo todo e são definidos pelas lojas; confira sempre na página do produto antes de comprar.</p>
     <p class="saudade">Feito com saudade dos tempos de recado, comunidade e foto com flash estourado. 💙</p>
     <p>Receitas originais do {esc(NOME)}. Tempos e temperaturas são aproximados e variam conforme o aparelho; ajuste ao seu equipamento. Cozinhe carnes até o ponto seguro (frango: 74 °C no centro).</p>
@@ -505,7 +503,15 @@ def pagina_receita(r, todas, aff, imagem_og):
         "keywords": ", ".join([CATEGORIAS[t][0] for t in r["tags"]] + [k.split("|")[0] for k in r["chave"] if k not in TEMPEROS]),
         "recipeIngredient": r["ingredientes"],
         "recipeInstructions": [{"@type": "HowToStep", "text": p} for p in r["passos"]],
-        "mainEntityOfPage": canon,
+        "mainEntityOfPage": canon, "inLanguage": "pt-BR", "dateModified": r["publicado"],
+        "publisher": {"@type": "Organization", "name": NOME, "url": url_abs("/")},
+    }, {
+        "@context": "https://schema.org", "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Início", "item": url_abs("/")},
+            {"@type": "ListItem", "position": 2, "name": cat_nome, "item": url_abs("/categoria/" + cat_slug + "/")},
+            {"@type": "ListItem", "position": 3, "name": r["titulo"], "item": canon},
+        ],
     }]
     return pagina(titulo=f"{r['titulo']} — {NOME}", descricao=r["resumo"], caminho=caminho, corpo=corpo,
                   og_image=imagem_og, og_dim=not r.get("imagem"), og_tipo="article", og_alt=r["titulo"], jsonld=jsonld)
@@ -600,16 +606,22 @@ def main():
   <p>Pratos salgados e sobremesas que você faz na air fryer ou na frigideira. Sem ideia do que cozinhar? Clique em “O que tenho em casa?” no menu.</p></div>
 </section>"""
     grid = lambda lista: '<div class="grid">\n' + "\n".join(card(r) for r in lista) + "\n</div>"
-    site_ld = [{"@context": "https://schema.org", "@type": "WebSite", "name": NOME, "url": url_abs("/"), "inLanguage": "pt-BR"}]
+    site_ld = [{"@context": "https://schema.org", "@type": "WebSite", "name": NOME, "url": url_abs("/"), "inLanguage": "pt-BR", "publisher": {"@type": "Organization", "name": NOME, "url": url_abs("/")}}]
     escrever("index.html", pagina(
         titulo=f"{NOME} — receitas rápidas na air fryer e na frigideira", descricao=SITE["descricao"], caminho="/",
         corpo=hero + chips("todas") + grid(posts), og_image=og_site if tem_pillow else None, jsonld=site_ld))
     for k, (nome, slug, titulo, desc) in CATEGORIAS.items():
         lista = [r for r in posts if k in r["tags"]]
-        corpo = f'<section class="box hero"><div class="box-h"><h2>comunidade</h2></div><div class="box-c"><h1>{esc(titulo)}</h1><p>{esc(desc)}</p></div></section>' + chips(k) + grid(lista)
+        corpo = f'<section class="box hero"><div class="box-h"><h2>categoria</h2></div><div class="box-c"><h1>{esc(titulo)}</h1><p>{esc(desc)}</p></div></section>' + chips(k) + grid(lista)
         escrever(f"categoria/{slug}/index.html", pagina(
             titulo=f"{titulo} — {NOME}", descricao=desc, caminho=f"/categoria/{slug}/", corpo=corpo,
-            og_image=og_site if tem_pillow else None))
+            og_image=og_site if tem_pillow else None,
+            jsonld=[{"@context": "https://schema.org", "@type": "CollectionPage", "name": titulo, "description": desc,
+                     "url": url_abs(f"/categoria/{slug}/"), "inLanguage": "pt-BR",
+                     "hasPart": [{"@type": "Recipe", "name": r["titulo"], "url": url_abs("/receitas/" + r["slug"] + "/")} for r in lista]},
+                    {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+                        {"@type": "ListItem", "position": 1, "name": "Início", "item": url_abs("/")},
+                        {"@type": "ListItem", "position": 2, "name": nome, "item": url_abs(f"/categoria/{slug}/")}]}]))
 
     # 404
     escrever("404.html", pagina(
