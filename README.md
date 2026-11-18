@@ -105,7 +105,7 @@ Se o `site.json` tiver `base` diferente de vazio, use `BASE_PATH= python3 build.
 ## Fotos e imagem de compartilhamento
 
 Sem foto, o build gera para cada receita uma imagem 1200×630 com título, tempo e porções.
-Com foto própria (`"imagem": "arquivo.jpg"` + arquivo em `img/`), use uma imagem horizontal de pelo menos 1200×630.
+Com foto própria (`"imagem": "arquivo.jpg"` + arquivo em `img/`), a foto vira o fundo da imagem de compartilhamento (recortada em 1200×630, com degradê escuro para o texto branco ficar legível). Use uma imagem horizontal de pelo menos 1200×630.
 Fotos reais aumentam muito o clique nas redes e ajudam a receita a aparecer com destaque no Google.
 
 ## CDN e cache (Cloudflare)
