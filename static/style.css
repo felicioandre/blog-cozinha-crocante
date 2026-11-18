@@ -8,6 +8,7 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 Verdana,Tahoma,'DejaVu Sans',sans-serif}
   @font-face{font-family:'Comfortaa';font-style:normal;font-weight:700;font-display:swap;src:url(comfortaa-700.woff2) format('woff2')}
+  @font-face{font-family:'Font Awesome 6 Free';font-style:normal;font-weight:900;font-display:swap;src:url(fa-solid-900.woff2) format('woff2')}
   @font-face{font-family:'Font Awesome 6 Brands';font-style:normal;font-weight:400;font-display:swap;src:url(fa-brands-400.woff2) format('woff2')}
   a{color:inherit}
   h1,h2,h3{font-family:Verdana,Tahoma,'DejaVu Sans',sans-serif;line-height:1.25;margin:0}
@@ -39,6 +40,8 @@
   .menu{list-style:none;margin:0;padding:0;text-align:left;border-top:1px solid var(--line)}
   .menu li{border-bottom:1px solid #e3ebf8}
   .menu a,.menu button{display:flex;gap:6px;width:100%;padding:6px 4px;font:12px Verdana,Tahoma,sans-serif;color:var(--link);text-decoration:none;background:none;border:0;cursor:pointer;text-align:left}
+  .menu i{font:900 13px/1 'Font Awesome 6 Free';font-style:normal;width:16px;text-align:center;flex:none;align-self:center}
+  .menu .fa-house:before{content:'\f015'}.menu .fa-fire:before{content:'\f06d'}.menu .fa-kitchen-set:before{content:'\e51a'}.menu .fa-burger:before{content:'\f805'}.menu .fa-cake-candles:before{content:'\f1fd'}.menu .fa-magnifying-glass:before{content:'\f002'}
   .menu a:hover,.menu button:hover{background:var(--faixa);text-decoration:underline}
   .ficha{margin:8px 0 0;text-align:left;font-size:11.5px}
   .ficha dt{color:var(--muted);float:left;clear:left;margin-right:4px}

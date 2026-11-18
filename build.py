@@ -254,13 +254,14 @@ GAVETA = """<button class="aba" id="aba-busca" type="button" data-act="abrir" ar
 
 CTX = {"posts": []}
 EMOJI_CAT = {"airfryer": "🍟", "frigideira": "🍳", "salgado": "🥪", "doce": "🍰"}
+ICONE_CAT = {"airfryer": "fa-fire", "frigideira": "fa-kitchen-set", "salgado": "fa-burger", "doce": "fa-cake-candles"}
 
 
 def lateral_esq():
     posts = CTX["posts"]
-    menu = f'<li><a href="{url("/")}">🏠 <span>Início</span></a></li>'
-    menu += "".join(f'<li><a href="{url("/categoria/" + c[1] + "/")}">{EMOJI_CAT[k]} <span>{esc(c[0])}</span></a></li>' for k, c in CATEGORIAS.items())
-    menu += '<li><button type="button" data-act="abrir">🔍 <span>O que tenho em casa?</span></button></li>'
+    menu = f'<li><a href="{url("/")}"><i class="fa-solid fa-house" aria-hidden="true"></i> <span>Início</span></a></li>'
+    menu += "".join(f'<li><a href="{url("/categoria/" + c[1] + "/")}"><i class="fa-solid {ICONE_CAT[k]}" aria-hidden="true"></i> <span>{esc(c[0])}</span></a></li>' for k, c in CATEGORIAS.items())
+    menu += '<li><button type="button" data-act="abrir"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> <span>O que tenho em casa?</span></button></li>'
     comunidades = "".join(
         f'<a class="com" href="{url("/categoria/" + c[1] + "/")}"><span class="com-ico">{EMOJI_CAT[k]}</span>'
         f'<span class="com-nome">{esc(c[0])}</span><span class="com-n">{sum(1 for r in posts if k in r["tags"])} receitas</span></a>'
@@ -348,6 +349,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 <meta name="twitter:image" content="{esc(og_image)}">
 <link rel="preload" href="{url('/assets/comfortaa-700.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="{url('/assets/fa-brands-400.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{url('/assets/fa-solid-900.woff2')}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{css}">
 <script>window.SITE={json.dumps({"base": BASE})};</script>
 {ld}
