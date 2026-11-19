@@ -32,7 +32,7 @@ URLs geradas:
 
 - `/` home · `/categoria/air-fryer/` · `/categoria/frigideira/` · `/categoria/salgados/` · `/categoria/sobremesas/`
 - `/receitas/<slug>/` cada receita (o `slug` do `posts.json` é a URL)
-- `/og/<slug>.png` imagem de compartilhamento · `/sitemap.xml` · `/robots.txt` · `/404.html`
+- `/og/<slug>.jpg` imagem de compartilhamento · `/sitemap.xml` · `/robots.txt` · `/404.html`
 
 ## Publicar pela primeira vez
 
