@@ -14,6 +14,7 @@ Blog de receitas rápidas (air fryer e frigideira), monetizado com afiliados.
 - Antes de alterar a estrutura do `posts.json`, mostre o que vai mudar
 - Sempre crie uma branch nova a partir da main atualizada.
 - Sempre faça commits utilizando o padrão commitizen
+- Sempre que fizer o push, já abra a PR da nova branch
 
 ## Ambiente
 - Windows 11 + WSL (Ubuntu); rode comandos no WSL

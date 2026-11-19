@@ -121,6 +121,7 @@
     "titulo": "Batata rústica na air fryer",
     "resumo": "Com casca, alecrim e bem crocante. Acompanha qualquer prato.",
     "emoji": "🥔",
+    "imagem": "04-batata-rustica.png",
     "cor": "#f6e7c8",
     "chave": [
       "batata",
@@ -1228,6 +1229,7 @@
     "titulo": "Rabanada na air fryer",
     "resumo": "Rabanada sem fritura, com casquinha de canela e açúcar. Boa para o pão amanhecido.",
     "emoji": "🍞",
+    "imagem": "03-rabanada.png",
     "cor": "#f6dcb4",
     "chave": [
       "pão francês",
