@@ -5,6 +5,7 @@
     "titulo": "Frango crocante na air fryer",
     "resumo": "Sobrecoxa dourada por fora e suculenta por dentro, com tempero de despensa.",
     "emoji": "🍗",
+    "imagem": "01-frango-airfryer.png",
     "cor": "#fde3d3",
     "chave": [
       "frango",
@@ -66,6 +67,7 @@
     "titulo": "Omelete cremoso de frigideira",
     "resumo": "Pronto em 5 minutos, com queijo derretido e tomate. Ótimo para jantar corrido.",
     "emoji": "🍳",
+    "imagem": "02-omelete-cremoso.png",
     "cor": "#fff0c2",
     "chave": [
       "ovo",
