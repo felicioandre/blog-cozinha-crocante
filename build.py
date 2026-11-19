@@ -149,6 +149,53 @@ def minutos(t):
     return (int(h.group(1)) * 60 if h else 0) + (int(m.group(1)) if m else 0)
 
 
+# ----------------------------------------------------------------- otimização das fotos
+IMG_MAX_LARGURA = 1000   # px; suficiente para a página da receita em telas 2x
+IMG_QUALIDADE = 78
+IMG_EXT = {".png", ".jpg", ".jpeg", ".webp"}
+
+
+def otimizar_imagens(posts, tem_pillow):
+    """Converte as fotos de img/ para JPEG progressivo reduzido em dist/img/.
+
+    As originais ficam intactas em img/ (e continuam valendo no posts.json). Cada receita
+    ganha `imagem_original` (arquivo-fonte, usado no card OG) e `imagem` passa a apontar
+    para o .jpg gerado. Sem Pillow, copia as originais sem alterar."""
+    origem = ROOT / "img"
+    if not origem.exists():
+        return
+    destino = DIST / "img"
+    destino.mkdir(exist_ok=True)
+    fotos = sorted(f for f in origem.iterdir() if f.is_file() and f.suffix.lower() in IMG_EXT)
+    antes = depois = 0
+    for f in fotos:
+        antes += f.stat().st_size
+        if not tem_pillow:
+            shutil.copy(f, destino / f.name)
+            depois += f.stat().st_size
+            continue
+        from PIL import Image, ImageOps
+        im = ImageOps.exif_transpose(Image.open(f))
+        if im.mode in ("RGBA", "LA") or (im.mode == "P" and "transparency" in im.info):
+            fundo = Image.new("RGB", im.size, (255, 255, 255))
+            fundo.paste(im.convert("RGBA"), mask=im.convert("RGBA").split()[-1])
+            im = fundo
+        else:
+            im = im.convert("RGB")
+        if im.width > IMG_MAX_LARGURA:
+            im = im.resize((IMG_MAX_LARGURA, round(im.height * IMG_MAX_LARGURA / im.width)), Image.LANCZOS)
+        saida = destino / (f.stem + ".jpg")
+        im.save(saida, "JPEG", quality=IMG_QUALIDADE, optimize=True, progressive=True)
+        depois += saida.stat().st_size
+    for r in posts:
+        if r.get("imagem"):
+            r["imagem_original"] = r["imagem"]
+            if tem_pillow:
+                r["imagem"] = Path(r["imagem"]).stem + ".jpg"
+    if fotos:
+        print(f"Fotos: {len(fotos)} em img/ ({antes // 1024} KB -> {depois // 1024} KB)")
+
+
 # ----------------------------------------------------------------- imagens de compartilhamento
 def _rgb(h):
     h = h.lstrip("#")
@@ -196,8 +243,18 @@ def gerar_card(titulo, cor, linha_meta, rotulo, destino, fundo=None):
         d.ellipse((W - 420, 250, W + 80, 750), fill=_escurecer(bg, 0.89))
     d.rectangle((0, 0, 22, H), fill=tomate)
 
-    marca = ImageFont.truetype(str(fonts / "DejaVuSans-Bold.ttf"), 30)
-    d.text((80, 62), NOME.upper(), font=marca, fill=tomate)
+    # marca igual ao logotipo do site: ícone + "cozinha" e "crocante" em minúsculas (Comfortaa Bold)
+    icone = Image.open(STATIC / "logo.png").convert("RGBA")
+    ih = 64
+    icone = icone.resize((round(icone.width * ih / icone.height), ih), Image.LANCZOS)
+    img.paste(icone, (80, 36), icone)
+    marca = ImageFont.truetype(str(fonts / "Comfortaa[wght].ttf"), 40)
+    marca.set_variation_by_axes([700])
+    cor1, cor2 = ((255, 255, 255), (255, 209, 234)) if fundo else (tinta, tomate)
+    x = 80 + icone.width + 14
+    prim, seg = NOME.lower().split(" ", 1) if " " in NOME else (NOME.lower(), "")
+    d.text((x, 68), prim, font=marca, fill=cor1, anchor="lm")
+    d.text((x + d.textlength(prim + " ", font=marca), 68), seg, font=marca, fill=cor2, anchor="lm")
     if rotulo:
         d.text((80, 108), rotulo.upper(), font=ImageFont.truetype(str(fonts / "DejaVuSans.ttf"), 24), fill=_escurecer(tinta, 1.8) if not fundo else (230, 220, 210))
 
@@ -597,8 +654,6 @@ def main():
     for f in STATIC.iterdir():
         if f.is_file():
             shutil.copy(f, DIST / "assets" / f.name)
-    if (ROOT / "img").exists():
-        shutil.copytree(ROOT / "img", DIST / "img")
 
     # imagens de compartilhamento
     try:
@@ -607,6 +662,7 @@ def main():
     except ImportError:
         tem_pillow = False
         avisos.append("Pillow não instalado: imagens de compartilhamento não foram geradas (pip install pillow)")
+    otimizar_imagens(posts, tem_pillow)
     og_site = url_abs("/og/site.png")
     if tem_pillow:
         gerar_card(NOME, "#fbf6ee", "", SITE.get("slogan", ""), DIST / "og" / "site.png")
@@ -619,7 +675,7 @@ def main():
             og = url_abs("/img/" + r["imagem"])
         elif tem_pillow:
             rotulo = " · ".join(CATEGORIAS[t][0] for t in r["tags"])
-            fundo = ROOT / "img" / r["imagem"] if r.get("imagem") else None
+            fundo = ROOT / "img" / r["imagem_original"] if r.get("imagem") else None
             gerar_card(r["titulo"], r["cor"], f"{r['tempo']}  •  {r['porcoes']}", rotulo, DIST / "og" / f"{r['slug']}.png", fundo)
             og = url_abs(f"/og/{r['slug']}.png")
         else:
