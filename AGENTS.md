@@ -49,7 +49,7 @@ Pontos que exigem ler mais de um lugar:
 - **Busca por ingredientes** é client-side: `build.py` escreve `dist/busca.json` (campos `chave`, `opc` etc.) e [static/app.js](static/app.js) o consome. A gaveta de busca (`GAVETA`) é HTML do build; `TEMPEROS` conta como ingrediente já disponível. Mudou campos do índice ou ids/classes da gaveta → ajuste `app.js` e `style.css` juntos.
 - **Sintaxe de `chave`**: `"a|b"` significa alternativas; `relacionadas()` e o JSON-LD também usam `chave`.
 - **`BASE` vs. `url()`/`url_abs()`**: todo link interno deve passar por `url()` (e links canônicos por `url_abs()`) para funcionar com site em subcaminho do github.io.
-- **Layout de três colunas** (`lateral_esq`/`lateral_dir`) usa `CTX["posts"]`, preenchido em `main()` antes de renderizar; "sorte do dia" e "recados" variam com a data do build.
+- **Layout de três colunas** (`lateral_esq`/`lateral_dir`) usa `CTX["posts"]`, preenchido em `main()` antes de renderizar; "sorte do dia" e "recados" variam com a data do build (`escolhas_do_dia()`: sorteio determinístico pela data; o cron diário de `pages.yml` os atualiza e `keepalive.yml` impede o agendamento de ser desativado por inatividade).
 
 ## Deploy
 
