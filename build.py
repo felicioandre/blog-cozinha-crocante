@@ -8,7 +8,7 @@ Lê posts.json (as receitas), affiliates.json (links de afiliado) e site.json
   /                              home com todas as receitas
   /categoria/<categoria>/        listas por categoria
   /receitas/<slug>/              uma página por receita (URL amigável)
-  /og/<slug>.png                 imagem de compartilhamento de cada receita
+  /og/<slug>.jpg                 imagem de compartilhamento de cada receita
   /busca.json                    índice leve usado pela busca por ingredientes
   /sitemap.xml, /robots.txt, /404.html, /CNAME
 
@@ -220,59 +220,81 @@ def _quebrar(d, texto, fonte, largura):
     return linhas
 
 
-def gerar_card(titulo, cor, linha_meta, rotulo, destino, fundo=None):
-    """Cria uma imagem 1200x630 (formato ideal para WhatsApp, Facebook, X)."""
-    from PIL import Image, ImageDraw, ImageFont
+def gerar_card(titulo, resumo, linha_meta, destino, foto=None):
+    """Cria uma imagem 1200x630 (ideal para WhatsApp, Facebook, X) em JPEG leve, estilo Orkut."""
+    from PIL import Image, ImageDraw, ImageFont, ImageOps
     W, H = 1200, 630
     fonts = STATIC / "fonts"
-    bg = _rgb(cor)
-    tomate, tinta = _rgb(COR), (43, 33, 24)
-    img = Image.new("RGB", (W, H), bg)
-    if fundo:
-        from PIL import ImageOps
-        foto = ImageOps.fit(Image.open(fundo).convert("RGB"), (W, H), Image.LANCZOS)
-        # degradê escuro (forte à esquerda, onde fica o texto) para garantir leitura
-        veu = Image.new("L", (W, H))
-        veu.putdata([int(215 - 120 * min(1, x / W)) for _ in range(H) for x in range(W)])
-        img = Image.composite(Image.new("RGB", (W, H), (20, 14, 9)), foto, veu)
-        tinta = (255, 255, 255)
-        d = ImageDraw.Draw(img)
-    else:
-        d = ImageDraw.Draw(img)
-        d.ellipse((W - 560, -180, W + 160, 540), fill=_escurecer(bg, 0.94))
-        d.ellipse((W - 420, 250, W + 80, 750), fill=_escurecer(bg, 0.89))
-    d.rectangle((0, 0, 22, H), fill=tomate)
+    fundo, painel, rosa, azul, tinta, suave = (214, 224, 242), (255, 255, 255), (214, 51, 138), (75, 100, 160), (43, 47, 58), (91, 103, 133)
+    img = Image.new("RGB", (W, H), fundo)
+    d = ImageDraw.Draw(img)
+    d.rectangle((0, 0, 22, H), fill=rosa)
+    d.rectangle((22, 0, W, 14), fill=azul)
 
-    # marca igual ao logotipo do site: ícone + "cozinha" e "crocante" em minúsculas (Comfortaa Bold)
+    def fonte(arq, tam):
+        return ImageFont.truetype(str(fonts / arq), tam)
+
+    # marca: ícone + "cozinha" "crocante" em minúsculas (Comfortaa Bold), canto superior esquerdo
     icone = Image.open(STATIC / "logo.png").convert("RGBA")
     ih = 64
     icone = icone.resize((round(icone.width * ih / icone.height), ih), Image.LANCZOS)
-    img.paste(icone, (80, 36), icone)
-    marca = ImageFont.truetype(str(fonts / "Comfortaa[wght].ttf"), 40)
+    img.paste(icone, (70, 40), icone)
+    marca = fonte("Comfortaa[wght].ttf", 42)
     marca.set_variation_by_axes([700])
-    cor1, cor2 = ((255, 255, 255), (255, 209, 234)) if fundo else (tinta, tomate)
-    x = 80 + icone.width + 14
+    x = 70 + icone.width + 14
     prim, seg = NOME.lower().split(" ", 1) if " " in NOME else (NOME.lower(), "")
-    d.text((x, 68), prim, font=marca, fill=cor1, anchor="lm")
-    d.text((x + d.textlength(prim + " ", font=marca), 68), seg, font=marca, fill=cor2, anchor="lm")
-    if rotulo:
-        d.text((80, 108), rotulo.upper(), font=ImageFont.truetype(str(fonts / "DejaVuSans.ttf"), 24), fill=_escurecer(tinta, 1.8) if not fundo else (230, 220, 210))
+    d.text((x, 72), prim, font=marca, fill=azul, anchor="lm")
+    d.text((x + d.textlength(prim + " ", font=marca), 72), seg, font=marca, fill=rosa, anchor="lm")
 
-    largura = W - 80 - 200
-    for tam in (88, 76, 66, 56, 48):
-        ft = ImageFont.truetype(str(fonts / "DejaVuSerif-Bold.ttf"), tam)
-        linhas = _quebrar(d, titulo, ft, largura)
+    # coluna do texto (mais estreita quando há foto)
+    esq, dir_ = 70, (640 if foto else W - 70)
+    larg = dir_ - esq
+    titulo = re.sub(r"\s*[—–-]\s*" + re.escape(NOME) + r"\s*$", "", titulo, flags=re.I)
+    for tam in (66, 58, 50, 44):
+        ft = fonte("DejaVuSerif-Bold.ttf", tam)
+        linhas = _quebrar(d, titulo, ft, larg)
         if len(linhas) <= 3:
             break
-    y = 175
+    y = 150
     for ln in linhas:
-        d.text((80, y), ln, font=ft, fill=tinta)
-        y += int(tam * 1.22)
-
+        d.text((esq, y), ln, font=ft, fill=tinta)
+        y += int(tam * 1.2)
+    y += 8
+    d.line((esq, y, dir_, y), fill=(191, 208, 234), width=2)
+    y += 18
+    fr = fonte("DejaVuSans.ttf", 26)
+    for ln in _quebrar(d, resumo, fr, larg)[:3 if len(linhas) < 3 else 2]:
+        d.text((esq, y), ln, font=fr, fill=suave)
+        y += 36
+    y += 14
     if linha_meta:
-        d.text((80, H - 100), linha_meta, font=ImageFont.truetype(str(fonts / "DejaVuSans-Bold.ttf"), 34), fill=tinta)
+        d.text((esq, y), linha_meta, font=fonte("DejaVuSans-Bold.ttf", 28), fill=azul)
+
+    # botão CTA
+    fb = fonte("DejaVuSans-Bold.ttf", 30)
+    rot = "FAÇA AGORA MESMO!"
+    bw, bh = int(d.textlength(rot, font=fb)) + 64, 64
+    by = H - 50 - bh
+    d.rectangle((esq + 5, by + 5, esq + bw + 5, by + bh + 5), fill=azul)
+    d.rectangle((esq, by, esq + bw, by + bh), fill=rosa)
+    d.text((esq + bw / 2, by + bh / 2), rot, font=fb, fill=(255, 255, 255), anchor="mm")
+
+    # foto da receita recortada, com moldura deslocada; sem foto, sem painel
+    if foto:
+        fw, fh = 440, 440
+        fx, fy = W - 70 - fw - 10, 95
+        d.rectangle((fx + 14, fy + 14, fx + fw + 14, fy + fh + 14), fill=rosa)
+        d.rectangle((fx - 4, fy - 4, fx + fw + 4, fy + fh + 4), fill=painel)
+        img.paste(ImageOps.fit(Image.open(foto).convert("RGB"), (fw, fh), Image.LANCZOS), (fx, fy))
     destino.parent.mkdir(parents=True, exist_ok=True)
-    img.save(destino, "PNG", optimize=True)
+    # orçamento de ~25 KB por imagem (todas juntas ficam abaixo de 1 MB): baixa a qualidade até caber
+    import io
+    for q in range(80, 24, -5):
+        buf = io.BytesIO()
+        img.save(buf, "JPEG", quality=q, optimize=True, progressive=True)
+        if buf.tell() <= 25 * 1000:
+            break
+    destino.write_bytes(buf.getvalue())
 
 
 # ----------------------------------------------------------------- HTML
@@ -386,7 +408,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
     canonical = url_abs(caminho)
     css = f"{url('/assets/style.css')}?v={hash_arquivo(STATIC / 'style.css')}"
     js = f"{url('/assets/app.js')}?v={hash_arquivo(STATIC / 'app.js')}"
-    og_image = og_image or url_abs("/og/site.png")
+    og_image = og_image or url_abs("/og/site.jpg")
     dim = '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' if og_dim else ""
     ld = "".join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in (jsonld or []))
     nav = "".join(f'<a href="{url("/categoria/" + s + "/")}">{n}</a>' for (n, s, _, _) in CATEGORIAS.values())
@@ -663,9 +685,9 @@ def main():
         tem_pillow = False
         avisos.append("Pillow não instalado: imagens de compartilhamento não foram geradas (pip install pillow)")
     otimizar_imagens(posts, tem_pillow)
-    og_site = url_abs("/og/site.png")
+    og_site = url_abs("/og/site.jpg")
     if tem_pillow:
-        gerar_card(NOME, "#fbf6ee", "", SITE.get("slogan", ""), DIST / "og" / "site.png")
+        gerar_card(NOME, SITE.get("slogan", ""), "", DIST / "og" / "site.jpg")
 
     CTX["posts"] = posts
 
@@ -674,10 +696,9 @@ def main():
         if r.get("imagem") and not tem_pillow:
             og = url_abs("/img/" + r["imagem"])
         elif tem_pillow:
-            rotulo = " · ".join(CATEGORIAS[t][0] for t in r["tags"])
             fundo = ROOT / "img" / r["imagem_original"] if r.get("imagem") else None
-            gerar_card(r["titulo"], r["cor"], f"{r['tempo']}  •  {r['porcoes']}", rotulo, DIST / "og" / f"{r['slug']}.png", fundo)
-            og = url_abs(f"/og/{r['slug']}.png")
+            gerar_card(r["titulo"], r["resumo"], f"{r['tempo']}   •   {r['porcoes']}", DIST / "og" / f"{r['slug']}.jpg", fundo)
+            og = url_abs(f"/og/{r['slug']}.jpg")
         else:
             og = og_site
         escrever(f"receitas/{r['slug']}/index.html", pagina_receita(r, posts, aff, og))
