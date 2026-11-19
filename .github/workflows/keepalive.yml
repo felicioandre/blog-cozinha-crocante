@@ -1,0 +1,22 @@
+name: Manter agendamento ativo
+
+# O GitHub desativa workflows agendados após 60 dias sem atividade no repositório.
+# Este job reativa o "Publicar o site" toda semana, para "sorte do dia" e "recados"
+# continuarem atualizando todo dia.
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reativar o workflow de publicação
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable pages.yml --repo "${{ github.repository }}"

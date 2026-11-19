@@ -23,6 +23,7 @@ import hashlib
 import html as htmllib
 import json
 import os
+import random
 import re
 import shutil
 import sys
@@ -284,18 +285,29 @@ def lateral_esq():
 </section>"""
 
 
+def escolhas_do_dia(posts, d):
+    """Sorte do dia + 3 recados: sorteio determinístico pela data (mesma data = mesmo resultado).
+    A sorte nunca repete a de ontem; os recados são distintos entre si e da sorte."""
+    def embaralhar(dia):
+        ordem = list(posts)
+        random.Random(dia.isoformat()).shuffle(ordem)
+        return ordem
+
+    ontem = embaralhar(d - datetime.timedelta(days=1))[0]
+    ordem = embaralhar(d)
+    if len(ordem) > 1 and ordem[0]["slug"] == ontem["slug"]:
+        ordem.append(ordem.pop(0))
+    return ordem[0], ordem[1:4]
+
+
 def lateral_dir():
     posts = CTX["posts"]
     if not posts:
         return ""
     d = hoje()
-    sorte = posts[d.toordinal() % len(posts)]
-    recados = [posts[(d.toordinal() * 7 + i * 5) % len(posts)] for i in range(3)]
-    vistos, rec = set(), ""
+    sorte, recados = escolhas_do_dia(posts, d)
+    rec = ""
     for r in recados:
-        if r["slug"] in vistos:
-            continue
-        vistos.add(r["slug"])
         rec += (f'<div class="recado"><div class="rec-foto" style="background:{esc(r["cor"])}">{r["emoji"]}</div>'
                 f'<div><a href="{url("/receitas/" + r["slug"] + "/")}">{esc(r["titulo"])}</a> escreveu:'
                 f'<p>“{esc(r["dica"])}”</p></div></div>')
