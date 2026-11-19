@@ -220,7 +220,7 @@ def _quebrar(d, texto, fonte, largura):
     return linhas
 
 
-def gerar_card(titulo, resumo, linha_meta, destino, foto=None):
+def gerar_card(titulo, resumo, linha_meta, destino, foto=None, doce=False):
     """Cria uma imagem 1200x630 (ideal para WhatsApp, Facebook, X) em JPEG leve, estilo Orkut."""
     from PIL import Image, ImageDraw, ImageFont, ImageOps
     W, H = 1200, 630
@@ -267,7 +267,7 @@ def gerar_card(titulo, resumo, linha_meta, destino, foto=None):
         d.text((esq, y), ln, font=fr, fill=suave)
         y += 36
     y += 14
-    if linha_meta:
+    if linha_meta and not foto:
         d.text((esq, y), linha_meta, font=fonte("DejaVuSans-Bold.ttf", 28), fill=azul)
 
     # botão CTA
@@ -275,17 +275,21 @@ def gerar_card(titulo, resumo, linha_meta, destino, foto=None):
     rot = "FAÇA AGORA MESMO!"
     bw, bh = int(d.textlength(rot, font=fb)) + 64, 64
     by = H - 50 - bh
-    d.rectangle((esq + 5, by + 5, esq + bw + 5, by + bh + 5), fill=azul)
-    d.rectangle((esq, by, esq + bw, by + bh), fill=rosa)
+    # salgadas: fundo rosa e sombra azul; doces: cores invertidas
+    c_fundo, c_sombra = (azul, rosa) if doce else (rosa, azul)
+    d.rectangle((esq + 5, by + 5, esq + bw + 5, by + bh + 5), fill=c_sombra)
+    d.rectangle((esq, by, esq + bw, by + bh), fill=c_fundo)
     d.text((esq + bw / 2, by + bh / 2), rot, font=fb, fill=(255, 255, 255), anchor="mm")
 
     # foto da receita recortada, com moldura deslocada; sem foto, sem painel
     if foto:
-        fw, fh = 440, 440
-        fx, fy = W - 70 - fw - 10, 95
+        fw, fh = 440, 400
+        fx, fy = W - 70 - fw - 10, 85
         d.rectangle((fx + 14, fy + 14, fx + fw + 14, fy + fh + 14), fill=rosa)
         d.rectangle((fx - 4, fy - 4, fx + fw + 4, fy + fh + 4), fill=painel)
         img.paste(ImageOps.fit(Image.open(foto).convert("RGB"), (fw, fh), Image.LANCZOS), (fx, fy))
+        if linha_meta:  # tempo e rendimento embaixo da foto, alinhados à direita
+            d.text((fx + fw, fy + fh + 50), linha_meta, font=fonte("DejaVuSans-Bold.ttf", 28), fill=azul, anchor="ra")
     destino.parent.mkdir(parents=True, exist_ok=True)
     # orçamento de ~25 KB por imagem (todas juntas ficam abaixo de 1 MB): baixa a qualidade até caber
     import io
@@ -697,7 +701,7 @@ def main():
             og = url_abs("/img/" + r["imagem"])
         elif tem_pillow:
             fundo = ROOT / "img" / r["imagem_original"] if r.get("imagem") else None
-            gerar_card(r["titulo"], r["resumo"], f"{r['tempo']}   •   {r['porcoes']}", DIST / "og" / f"{r['slug']}.jpg", fundo)
+            gerar_card(r["titulo"], r["resumo"], f"{r['tempo']}   •   {r['porcoes']}", DIST / "og" / f"{r['slug']}.jpg", fundo, "doce" in r["tags"])
             og = url_abs(f"/og/{r['slug']}.jpg")
         else:
             og = og_site
