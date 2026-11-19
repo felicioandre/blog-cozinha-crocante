@@ -1587,5 +1587,56 @@
         "busca": "espatula de silicone"
       }
     ]
+  },
+  {
+    "slug": "brigadeiro-de-colher-frigideira",
+    "publicado": "2026-11-19",
+    "titulo": "Brigadeiro de colher na frigideira",
+    "resumo": "Sobremesa cremosa com 3 ingredientes, pronta em 10 minutos e sem complicação.",
+    "emoji": "🍫",
+    "imagem": "05-brigadeiro-colher.jpg",
+    "cor": "#e9d2c0",
+    "chave": [
+      "leite condensado",
+      "chocolate em pó|cacau em pó",
+      "manteiga"
+    ],
+    "opc": [
+      "granulado de chocolate",
+      "creme de leite"
+    ],
+    "tags": [
+      "frigideira",
+      "doce"
+    ],
+    "tempo": "10 min",
+    "porcoes": "4 porções",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "1 lata de leite condensado (395 g)",
+      "3 colheres (sopa) de chocolate em pó ou cacau em pó",
+      "1 colher (sopa) de manteiga",
+      "Granulado de chocolate para cobrir (opcional)"
+    ],
+    "passos": [
+      "Em uma frigideira antiaderente, junte o leite condensado, o chocolate em pó e a manteiga.",
+      "Leve ao fogo baixo e mexa sem parar com a espátula, raspando o fundo.",
+      "Cozinhe por 6 a 8 minutos, até o brigadeiro engrossar e começar a soltar do fundo da frigideira.",
+      "Desligue o fogo e passe para taças ou copinhos.",
+      "Cubra com granulado e sirva morno, ou leve à geladeira por 30 minutos para ficar mais firme."
+    ],
+    "dica": "Se a sua frigideira tem fundo fino, mantenha o fogo bem baixo e não pare de mexer. Assim o brigadeiro não gruda nem queima.",
+    "produtos": [
+      {
+        "nome": "Frigideira antiaderente",
+        "nota": "Evita que o brigadeiro grude",
+        "busca": "frigideira antiaderente"
+      },
+      {
+        "nome": "Espátula de silicone",
+        "nota": "Raspa o fundo sem arranhar",
+        "busca": "espatula de silicone"
+      }
+    ]
   }
 ]
