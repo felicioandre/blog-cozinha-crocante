@@ -1637,5 +1637,62 @@
         "busca": "espatula de silicone"
       }
     ]
+  },
+  {
+    "slug": "churros-de-pao-de-forma-air-fryer",
+    "publicado": "2026-11-20",
+    "titulo": "Churros de pão de forma na air fryer",
+    "resumo": "Palitos crocantes com açúcar e canela, prontos em 10 minutos, com recheio de doce de leite se quiser.",
+    "emoji": "🥨",
+    "cor": "#f5dfbf",
+    "chave": [
+      "pão de forma",
+      "manteiga|margarina",
+      "açúcar",
+      "canela em pó"
+    ],
+    "opc": [
+      "doce de leite",
+      "chocolate em barra"
+    ],
+    "tags": [
+      "airfryer",
+      "doce"
+    ],
+    "tempo": "10 min",
+    "porcoes": "3 porções",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "6 fatias de pão de forma, sem as bordas",
+      "2 colheres (sopa) de manteiga derretida",
+      "4 colheres (sopa) de açúcar",
+      "1 colher (chá) de canela em pó",
+      "Doce de leite ou chocolate derretido para mergulhar (opcional)"
+    ],
+    "passos": [
+      "Pré-aqueça a air fryer a 180 °C por 3 minutos.",
+      "Corte cada fatia de pão em 3 palitos e pincele todos com a manteiga derretida.",
+      "Misture o açúcar e a canela em um prato fundo e passe os palitos por essa mistura, cobrindo bem.",
+      "Distribua os palitos na cesta, sem sobrepor, e asse a 180 °C por 5 a 6 minutos, virando na metade do tempo.",
+      "Retire quando estiverem dourados e crocantes e sirva morno, com doce de leite ou chocolate para mergulhar."
+    ],
+    "dica": "Fique de olho a partir dos 4 minutos: o açúcar dourece rápido e o pão passa do ponto facilmente. Asse em duas levas se a cesta ficar cheia.",
+    "produtos": [
+      {
+        "nome": "Air fryer",
+        "nota": "Deixa o pão crocante com pouca gordura",
+        "busca": "air fryer"
+      },
+      {
+        "nome": "Pincel culinário",
+        "nota": "Espalha a manteiga por igual",
+        "busca": "pincel culinario"
+      },
+      {
+        "nome": "Pegador de cozinha",
+        "nota": "Vira os palitos sem queimar a mão",
+        "busca": "pegador de cozinha"
+      }
+    ]
   }
 ]
