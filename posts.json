@@ -1694,5 +1694,65 @@
         "busca": "pegador de cozinha"
       }
     ]
+  },
+  {
+    "slug": "maca-crocante-com-aveia-frigideira",
+    "publicado": "2026-11-21",
+    "titulo": "Maçã crocante com aveia na frigideira",
+    "resumo": "Maçã macia com canela e uma cobertura de aveia dourada, pronta em 15 minutos.",
+    "emoji": "🍎",
+    "cor": "#fbdcd8",
+    "chave": [
+      "maçã",
+      "aveia",
+      "manteiga|margarina",
+      "canela em pó",
+      "açúcar|açúcar mascavo"
+    ],
+    "opc": [
+      "iogurte natural",
+      "uva-passa"
+    ],
+    "tags": [
+      "frigideira",
+      "doce"
+    ],
+    "tempo": "15 min",
+    "porcoes": "2 porções",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "2 maçãs, sem sementes, em cubos pequenos",
+      "1 colher (sopa) de manteiga",
+      "2 colheres (sopa) de açúcar mascavo ou açúcar comum",
+      "1 colher (chá) de canela em pó",
+      "4 colheres (sopa) de aveia em flocos",
+      "2 colheres (sopa) de água",
+      "Iogurte natural para servir (opcional)"
+    ],
+    "passos": [
+      "Derreta a manteiga em uma frigideira em fogo médio.",
+      "Junte a maçã, metade do açúcar e a canela e mexa por 4 a 5 minutos, até a maçã começar a amolecer.",
+      "Adicione a água, tampe e cozinhe por 3 minutos em fogo baixo, até ficar macia e com calda.",
+      "Passe a maçã para um prato e, na mesma frigideira, doure a aveia com o restante do açúcar por 2 a 3 minutos, mexendo sempre.",
+      "Espalhe a aveia dourada sobre a maçã e sirva morna, com iogurte se quiser."
+    ],
+    "dica": "Use maçã firme (fuji ou gala) para os cubos não desmancharem. A aveia queima rápido: mexa sem parar e tire do fogo assim que dourar.",
+    "produtos": [
+      {
+        "nome": "Frigideira antiaderente",
+        "nota": "Evita que o açúcar grude e queime",
+        "busca": "frigideira antiaderente"
+      },
+      {
+        "nome": "Espátula de silicone",
+        "nota": "Mexe sem riscar o fundo da panela",
+        "busca": "espatula de silicone"
+      },
+      {
+        "nome": "Tábua de corte",
+        "nota": "Para picar a maçã com segurança",
+        "busca": "tabua de corte"
+      }
+    ]
   }
 ]
