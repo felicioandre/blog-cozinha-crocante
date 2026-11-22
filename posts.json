@@ -1754,5 +1754,64 @@
         "busca": "tabua de corte"
       }
     ]
+  },
+  {
+    "slug": "bolinho-de-arroz-frigideira",
+    "publicado": "2026-11-22",
+    "titulo": "Bolinho de arroz crocante na frigideira",
+    "resumo": "Aproveite o arroz da geladeira: bolinhos dourados e crocantes por fora, com queijo derretido por dentro.",
+    "emoji": "🍚",
+    "cor": "#fdf3d0",
+    "chave": [
+      "arroz cozido",
+      "ovo",
+      "queijo",
+      "farinha de trigo|farinha de rosca"
+    ],
+    "opc": [
+      "cebolinha",
+      "alho em pó"
+    ],
+    "tags": [
+      "frigideira",
+      "salgado"
+    ],
+    "tempo": "20 min",
+    "porcoes": "3 porções (8 bolinhos)",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "2 xícaras de arroz cozido (do dia anterior, de preferência)",
+      "1 ovo",
+      "4 colheres (sopa) de farinha de trigo ou de rosca",
+      "100 g de queijo muçarela ou prato em cubinhos",
+      "1 colher (sopa) de cebolinha picada (opcional)",
+      "1 pitada de sal",
+      "Óleo para untar a frigideira"
+    ],
+    "passos": [
+      "Em uma tigela, misture o arroz, o ovo, a farinha, a cebolinha e o sal até formar uma massa que se segure.",
+      "Com as mãos úmidas, pegue uma porção da massa, coloque um cubinho de queijo no meio e feche, formando um bolinho achatado.",
+      "Aqueça uma frigideira antiaderente em fogo médio com um fio de óleo.",
+      "Coloque os bolinhos sem encostar um no outro e doure por 3 a 4 minutos de cada lado, até ficarem crocantes.",
+      "Escorra em papel toalha e sirva quente."
+    ],
+    "dica": "Arroz frio e seco gruda melhor. Se a massa estiver mole, acrescente mais uma colher de farinha. Vire os bolinhos só quando soltarem da frigideira.",
+    "produtos": [
+      {
+        "nome": "Frigideira antiaderente",
+        "nota": "Doura sem grudar e usa pouco óleo",
+        "busca": "frigideira antiaderente"
+      },
+      {
+        "nome": "Espátula de silicone",
+        "nota": "Vira os bolinhos sem quebrar",
+        "busca": "espatula de silicone"
+      },
+      {
+        "nome": "Pegador de cozinha",
+        "nota": "Para escorrer e servir com segurança",
+        "busca": "pegador de cozinha"
+      }
+    ]
   }
 ]
