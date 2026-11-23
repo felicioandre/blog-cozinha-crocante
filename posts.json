@@ -1813,5 +1813,62 @@
         "busca": "pegador de cozinha"
       }
     ]
+  },
+  {
+    "slug": "pastel-de-queijo-air-fryer",
+    "publicado": "2026-11-23",
+    "titulo": "Pastel de queijo na air fryer",
+    "resumo": "Massa de pastel crocante e queijo derretido por dentro, sem fritura de imersão: pronto em poucos minutos.",
+    "emoji": "🥟",
+    "cor": "#fff0cc",
+    "chave": [
+      "massa de pastel",
+      "queijo"
+    ],
+    "opc": [
+      "orégano",
+      "presunto",
+      "ovo"
+    ],
+    "tags": [
+      "airfryer",
+      "salgado"
+    ],
+    "tempo": "20 min",
+    "porcoes": "4 porções (8 pastéis)",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "8 discos de massa de pastel",
+      "200 g de queijo muçarela em fatias ou cubos",
+      "1 colher (chá) de orégano (opcional)",
+      "1 ovo batido, para selar e pincelar",
+      "1 colher (sopa) de óleo, para pincelar"
+    ],
+    "passos": [
+      "Coloque o queijo (e o orégano, se quiser) no centro de cada disco de massa, sem passar da metade.",
+      "Pincele a borda com um pouco de ovo batido, dobre ao meio e aperte bem com um garfo para selar.",
+      "Pincele os dois lados dos pastéis com óleo misturado ao restante do ovo.",
+      "Pré-aqueça a air fryer a 180 °C por 3 minutos.",
+      "Disponha os pastéis sem sobrepor, em duas levas se preciso, e asse por 8 a 10 minutos, virando na metade, até dourar.",
+      "Espere 2 minutos antes de servir, pois o queijo fica muito quente."
+    ],
+    "dica": "Não recheie demais e sele bem as bordas, senão o queijo vaza. Pincelar com óleo é o que deixa a massa dourada e crocante.",
+    "produtos": [
+      {
+        "nome": "Air fryer",
+        "nota": "Assa os pastéis crocantes com pouco óleo",
+        "busca": "air fryer"
+      },
+      {
+        "nome": "Pincel culinário",
+        "nota": "Para espalhar o ovo e o óleo por igual",
+        "busca": "pincel culinario"
+      },
+      {
+        "nome": "Papel manteiga para air fryer",
+        "nota": "Evita que o queijo que vaza grude na cesta",
+        "busca": "papel manteiga para air fryer"
+      }
+    ]
   }
 ]
