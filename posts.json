@@ -1870,5 +1870,65 @@
         "busca": "papel manteiga para air fryer"
       }
     ]
+  },
+  {
+    "slug": "mini-bolo-de-iogurte-air-fryer",
+    "publicado": "2026-11-24",
+    "titulo": "Mini bolo de iogurte na air fryer",
+    "resumo": "Bolinhos fofinhos de iogurte com cheirinho de limão, prontos em menos de meia hora e sem sujar o forno.",
+    "emoji": "🧁",
+    "cor": "#ffeaf2",
+    "chave": [
+      "iogurte",
+      "farinha de trigo",
+      "ovo"
+    ],
+    "opc": [
+      "limão",
+      "açúcar de confeiteiro"
+    ],
+    "tags": [
+      "airfryer",
+      "doce"
+    ],
+    "tempo": "25 min",
+    "porcoes": "6 bolinhos",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "1 ovo",
+      "1/2 xícara (chá) de iogurte natural (120 g)",
+      "1/3 xícara (chá) de açúcar (65 g)",
+      "3 colheres (sopa) de óleo",
+      "1 xícara (chá) de farinha de trigo (120 g)",
+      "1 colher (chá) de fermento em pó",
+      "Raspas de 1/2 limão (opcional)",
+      "Açúcar de confeiteiro para polvilhar (opcional)"
+    ],
+    "passos": [
+      "Em uma tigela, misture com o fouet o ovo, o iogurte, o açúcar e o óleo até ficar homogêneo.",
+      "Acrescente a farinha peneirada, as raspas de limão e, por último, o fermento. Misture só até incorporar.",
+      "Distribua a massa em 6 forminhas de silicone ou de papel, enchendo até 2/3 da altura.",
+      "Pré-aqueça a air fryer a 160 °C por 3 minutos.",
+      "Asse por 15 a 18 minutos, até dourar e o palito sair limpo ao espetar o centro. Se dourar rápido demais, cubra com papel alumínio.",
+      "Deixe amornar por 5 minutos antes de desenformar e polvilhe açúcar de confeiteiro."
+    ],
+    "dica": "Encha as forminhas só até 2/3: a massa cresce e, com a ventoinha da air fryer, forminha de papel muito leve pode virar. Use as de silicone ou apoie as de papel em uma forma.",
+    "produtos": [
+      {
+        "nome": "Air fryer",
+        "nota": "Assa os bolinhos por igual em poucos minutos",
+        "busca": "air fryer"
+      },
+      {
+        "nome": "Forma de silicone",
+        "nota": "Forminhas reutilizáveis que desenformam fácil",
+        "busca": "forma de silicone"
+      },
+      {
+        "nome": "Batedor fouet",
+        "nota": "Deixa a massa lisa e sem grumos",
+        "busca": "batedor fouet"
+      }
+    ]
   }
 ]
