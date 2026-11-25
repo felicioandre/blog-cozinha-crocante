@@ -558,7 +558,7 @@ TECLAS_JOGO = ["qwertyuiop", "asdfghjklç", "zxcvbnm"]
 def pagina_jogo(jogo):
     n = jogo["tamanho"]
     grade = "".join(
-        '<div class="linha">' + "".join('<span class="celula" aria-hidden="true"></span>' for _ in range(n)) + "</div>"
+        '<div class="linha" role="row">' + "".join('<span class="celula" aria-hidden="true"></span>' for _ in range(n)) + "</div>"
         for _ in range(6))
     linhas = []
     for i, linha in enumerate(TECLAS_JOGO):

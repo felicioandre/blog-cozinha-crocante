@@ -28,13 +28,13 @@
 - [x] 4.5 Implementar o fim da partida (acerto e erro): mostrar a palavra com acento e o link "Ver receita: <título>" para `/receitas/<slug>/`, bloqueando novas letras. Verificar acertando na tentativa 3 e errando 6 vezes: link correto nos dois casos.
 - [x] 4.6 Salvar o progresso no `localStorage` por data (chave `cc_jogo`), descartando o de dias anteriores e com `try/catch` em todo acesso. Verificar recarregando no meio da partida, reabrindo após terminar, trocando a `data` do `jogo.json` e bloqueando o `localStorage` nas ferramentas do navegador.
 - [x] 4.7 Tratar falha do `fetch` do `jogo.json` com mensagem em português e link para a página inicial. Verificar renomeando `dist/jogo.json` temporariamente e recarregando a página.
-- [ ] 4.8 Estilos do jogo em [static/style.css](../../../static/style.css): grade com colunas por `--colunas`, células, teclado, cores com forma/texto além da cor, responsivo em 360 px de largura com palavra de 10 letras. Verificar visualmente com `BUILD_DATE` em dias com palavras de 4 e de 10 letras, em 360 px e em desktop, e a navegação só com o teclado.
-- [ ] 4.9 Acessibilidade: `aria-label` por célula ("a, letra certa"), região `aria-live` para mensagens e foco visível nas teclas. Verificar inspecionando o DOM de uma tentativa confirmada.
+- [x] 4.8 Estilos do jogo em [static/style.css](../../../static/style.css): grade com colunas por `--colunas`, células, teclado, cores com forma/texto além da cor, responsivo em 360 px de largura com palavra de 10 letras. Verificar visualmente com `BUILD_DATE` em dias com palavras de 4 e de 10 letras, em 360 px e em desktop, e a navegação só com o teclado.
+- [x] 4.9 Acessibilidade: `aria-label` por célula ("a, letra certa"), região `aria-live` para mensagens e foco visível nas teclas. Verificar inspecionando o DOM de uma tentativa confirmada.
 
 ## 5. Documentação e fechamento
 
 - [x] 5.1 Documentar no [README.md](../../../README.md) o campo `palavra` na tabela de campos (4 a 10 letras, única, no dicionário), o sorteio diário, o dicionário (onde fica, como `sincronizar` e `regenerar`) e o crédito/licença da lista `fserb/pt-br`. Verificar relendo a seção e rodando os comandos citados.
-- [ ] 5.2 Verificação final: `python3 build.py --check`, `python3 build.py` e, com `BUILD_DATE` em dias diferentes, conferir `dist/jogo.json`, `dist/dicionario/`, o sitemap e o menu. Verificar que nenhuma página existente ficou com link quebrado nem teve link de afiliado removido (`git diff --stat` sem mudanças em `affiliates.json`).
+- [x] 5.2 Verificação final: `python3 build.py --check`, `python3 build.py` e, com `BUILD_DATE` em dias diferentes, conferir `dist/jogo.json`, `dist/dicionario/`, o sitemap e o menu. Verificar que nenhuma página existente ficou com link quebrado nem teve link de afiliado removido (`git diff --stat` sem mudanças em `affiliates.json`).
 
 ## 6. Ajustes de interface depois do primeiro teste
 
