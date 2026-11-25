@@ -476,7 +476,7 @@ def lateral_dir():
 
 
 def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_tipo="website",
-           og_alt="", jsonld=None, noindex=False, jogo_pagina=False):
+           og_alt="", jsonld=None, noindex=False, jogo_pagina=False, js_extra=""):
     canonical = url_abs(caminho)
     css = f"{url('/assets/style.css')}?v={hash_arquivo(STATIC / 'style.css')}"
     js = f"{url('/assets/app.js')}?v={hash_arquivo(STATIC / 'app.js')}"
@@ -547,7 +547,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
   </div>
 </footer>
 <script src="{js}" defer></script>
-</body>
+{js_extra}</body>
 </html>
 """
 
@@ -582,7 +582,8 @@ def pagina_jogo(jogo):
 </section>"""
     return pagina(titulo=f"Jogo da palavra do dia — {NOME}",
                   descricao=f"Descubra a palavra do dia, de {n} letras, em 6 tentativas. No fim, uma receita do {NOME} ligada à palavra.",
-                  caminho="/palavra-do-dia/", corpo=corpo, jogo_pagina=True)
+                  caminho="/palavra-do-dia/", corpo=corpo, jogo_pagina=True,
+                  js_extra=f'<script src="{url("/assets/jogo.js")}?v={hash_arquivo(STATIC / "jogo.js")}" defer></script>\n')
 
 
 def thumb(r, classe):
