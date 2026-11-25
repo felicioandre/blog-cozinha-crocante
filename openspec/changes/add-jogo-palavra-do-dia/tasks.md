@@ -34,7 +34,7 @@
 ## 5. Documentação e fechamento
 
 - [x] 5.1 Documentar no [README.md](../../../README.md) o campo `palavra` na tabela de campos (4 a 10 letras, única, no dicionário), o sorteio diário, o dicionário (onde fica, como `sincronizar` e `regenerar`) e o crédito/licença da lista `fserb/pt-br`. Verificar relendo a seção e rodando os comandos citados.
-- [ ] 5.2 Verificação final: `python3 build.py --check`, `python3 build.py` e, com `BUILD_DATE` em dias diferentes, conferir `dist/jogo.json`, `dist/dicionario/`, o sitemap e o menu. Verificar que nenhuma página existente ficou com link quebrado nem teve link de afiliado removido (`git diff --stat` sem mudanças em `affiliates.json`).
+- [x] 5.2 Verificação final: `python3 build.py --check`, `python3 build.py` e, com `BUILD_DATE` em dias diferentes, conferir `dist/jogo.json`, `dist/dicionario/`, o sitemap e o menu. Verificar que nenhuma página existente ficou com link quebrado nem teve link de afiliado removido (`git diff --stat` sem mudanças em `affiliates.json`).
 
 ## 6. Ajustes de interface depois do primeiro teste
 
