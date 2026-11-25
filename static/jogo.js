@@ -157,6 +157,7 @@
   /* ---- entrada: teclado físico e tela ---- */
   document.addEventListener('keydown', e => {
     if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (ajuda && ajuda.open) return;                  // modal aberto: Esc fecha, nada é digitado
     // Enter/Espaço com botão focado já disparam o clique do botão; as letras continuam valendo
     if (e.target && e.target.tagName === 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) return;
     if (e.key === 'Enter') { e.preventDefault(); confirmar(); }
@@ -175,6 +176,18 @@
     else if (b.dataset.acao === 'apagar') apagar();
     b.blur();   // tira o foco do botão: as teclas físicas seguem indo para a página, e Espaço não clica de novo
   });
+
+  /* ---- modal de ajuda ---- */
+  const ajuda = document.getElementById('ajuda');
+  const abrirAjuda = document.getElementById('ajuda-abrir');
+  if (ajuda && abrirAjuda) {
+    abrirAjuda.addEventListener('click', () => {
+      if (typeof ajuda.showModal === 'function') ajuda.showModal(); else ajuda.setAttribute('open', '');
+    });
+    ajuda.addEventListener('click', e => {            // clique fora da caixa fecha
+      if (e.target === ajuda) ajuda.close ? ajuda.close() : ajuda.removeAttribute('open');
+    });
+  }
 
   /* ---- início ---- */
   function iniciar(dados) {

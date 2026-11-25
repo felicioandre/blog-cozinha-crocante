@@ -322,3 +322,18 @@
   .tecla{touch-action:manipulation}
   .tecla.larga{margin-left:12px}
   @media (max-width:480px){.tecla.larga{margin-left:6px}.teclado-linha{gap:3px}}
+  .jogo-topo{display:flex;align-items:center;justify-content:space-between}
+  .ajuda-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--blue);background:#fff;color:var(--blue-d);font:700 14px/1 Verdana,Tahoma,sans-serif;padding:0;cursor:pointer;touch-action:manipulation}
+  .ajuda-btn:hover{background:var(--faixa)}
+  .ajuda-btn:focus-visible,.ajuda-fechar:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .ajuda-modal{border:1px solid var(--line);border-radius:8px;max-width:min(92vw,440px);padding:16px 18px;color:var(--ink);font-size:13px;line-height:1.5}
+  .ajuda-modal::backdrop{background:rgba(20,30,60,.5)}
+  .ajuda-modal h2{font-size:16px;margin:0 0 8px;color:var(--link)}
+  .ajuda-modal p{margin:0 0 10px}
+  .ajuda-dicas{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:6px}
+  .amostra{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:4px;font-size:12px;font-weight:700;vertical-align:middle;margin-right:4px}
+  .amostra.certa{background:#3f8f5a;color:#fff}
+  .amostra.presente{background:var(--sun);color:var(--ink)}
+  .amostra.ausente{background:#8a93a8;color:#fff}
+  .ajuda-fechar{display:block;margin-left:auto;padding:8px 18px;border:0;border-radius:6px;background:var(--blue);color:#fff;font:700 13px Verdana,Tahoma,sans-serif;cursor:pointer}
+  @media (max-width:760px){.pagina-jogo .aba{display:none}}

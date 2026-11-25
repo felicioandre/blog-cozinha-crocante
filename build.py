@@ -381,7 +381,7 @@ def lateral_esq():
     menu += "".join(f'<li><a href="{url("/categoria/" + c[1] + "/")}"><i class="fa-solid {ICONE_CAT[k]}" aria-hidden="true"></i> <span>{esc(c[0])}</span></a></li>' for k, c in CATEGORIAS.items())
     menu += '<li><button type="button" data-act="abrir"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> <span>O que tenho em casa?</span></button></li>'
     if CTX.get("jogo"):
-        menu += f'<li><a href="{url("/palavra-do-dia/")}"><i class="fa-solid fa-spell-check" aria-hidden="true"></i> <span>Jogo do dia</span></a></li>'
+        menu += f'<li><a href="{url("/palavra-do-dia/")}"><i class="fa-solid fa-spell-check" aria-hidden="true"></i> <span>Jogo palavra do dia</span></a></li>'
     comunidades = "".join(
         f'<a class="com" href="{url("/categoria/" + c[1] + "/")}"><span class="com-ico">{EMOJI_CAT[k]}</span>'
         f'<span class="com-nome">{esc(c[0])}</span><span class="com-n">{sum(1 for r in posts if k in r["tags"])} receitas</span></a>'
@@ -569,17 +569,27 @@ def pagina_jogo(jogo):
             teclas += '<button type="button" class="tecla larga" data-acao="enter">Enter</button>'
         linhas.append(f'<div class="teclado-linha">{teclas}</div>')
     corpo = f"""<section class="box hero">
-  <div class="box-h"><h2>jogo do dia</h2></div>
+  <div class="box-h jogo-topo"><h2>jogo palavra do dia</h2>
+    <button type="button" class="ajuda-btn" id="ajuda-abrir" aria-label="Como jogar" aria-haspopup="dialog">?</button></div>
   <div class="box-c jogo" id="jogo" style="--colunas:{n}">
-    <h1>Descubra a <em>palavra do dia</em></h1>
-    <p class="jogo-regras">Palavra de {n} letras em 6 tentativas. Cada letra fica <b>verde</b> (lugar certo), <b>amarela</b> (está na palavra, em outro lugar) ou <b>cinza</b> (não está). Só valem palavras que existem.</p>
     <p class="jogo-aviso" id="jogo-aviso" aria-live="polite"></p>
     <div class="grade" id="grade" role="table" aria-label="Tentativas">{grade}</div>
     <div class="teclado" id="teclado" aria-label="Teclado">{"".join(linhas)}</div>
     <div class="jogo-fim" id="jogo-fim" aria-live="polite" hidden></div>
     <noscript><p>O jogo precisa de JavaScript para funcionar.</p></noscript>
   </div>
-</section>"""
+</section>
+<dialog class="ajuda-modal" id="ajuda" aria-labelledby="ajuda-titulo">
+  <h2 id="ajuda-titulo">Como jogar</h2>
+  <p>Descubra a palavra do dia, de <b>{n} letras</b>, em até <b>6 tentativas</b>. Só valem palavras que existem (acento não faz diferença).</p>
+  <ul class="ajuda-dicas">
+    <li><span class="amostra certa" aria-hidden="true">&#10003;</span> <b>Verde:</b> a letra está na palavra e no lugar certo.</li>
+    <li><span class="amostra presente" aria-hidden="true">&#9680;</span> <b>Amarelo:</b> a letra está na palavra, mas em outro lugar.</li>
+    <li><span class="amostra ausente" aria-hidden="true">&#10005;</span> <b>Cinza:</b> a letra não está na palavra.</li>
+  </ul>
+  <p>No fim da partida, você vê a palavra e a receita do blog ligada a ela. Volte amanhã para uma palavra nova.</p>
+  <form method="dialog"><button class="ajuda-fechar">Entendi</button></form>
+</dialog>"""
     return pagina(titulo=f"Jogo da palavra do dia — {NOME}",
                   descricao=f"Descubra a palavra do dia, de {n} letras, em 6 tentativas. No fim, uma receita do {NOME} ligada à palavra.",
                   caminho="/palavra-do-dia/", corpo=corpo, jogo_pagina=True,

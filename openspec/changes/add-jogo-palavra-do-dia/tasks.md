@@ -36,6 +36,12 @@
 - [x] 5.1 Documentar no [README.md](../../../README.md) o campo `palavra` na tabela de campos (4 a 10 letras, única, no dicionário), o sorteio diário, o dicionário (onde fica, como `sincronizar` e `regenerar`) e o crédito/licença da lista `fserb/pt-br`. Verificar relendo a seção e rodando os comandos citados.
 - [ ] 5.2 Verificação final: `python3 build.py --check`, `python3 build.py` e, com `BUILD_DATE` em dias diferentes, conferir `dist/jogo.json`, `dist/dicionario/`, o sitemap e o menu. Verificar que nenhuma página existente ficou com link quebrado nem teve link de afiliado removido (`git diff --stat` sem mudanças em `affiliates.json`).
 
+## 6. Ajustes de interface depois do primeiro teste
+
+- [x] 6.1 Página em `/palavra-do-dia/`, link "Palavra do dia" no menu do topo, página de uma coluna sem rodapé e com a altura da janela. Verificar abrindo `/palavra-do-dia/` e conferindo `dist/sitemap.xml` e o menu.
+- [x] 6.2 Carregar `jogo.js` só nessa página e usar `data-acao` nos botões do teclado, com apagar ao lado do P e Enter ao lado do M. Verificar carregando a página por HTTP no jsdom e clicando nas teclas até acertar a palavra.
+- [x] 6.3 Regras em modal (`<dialog>`) com botão "?", sem o título "Descubra a palavra do dia", rótulo "Jogo palavra do dia" e aba "O que tenho em casa?" oculta até 760 px nessa página. Verificar abrindo o modal no jsdom e conferindo a regra `@media (max-width:760px)` no CSS.
+
 ## Workflow follow-up
 
 - Seguir AGENTS.md: branch nova a partir da `main` atualizada, commits no padrão commitizen e abrir a PR ao fazer o push.

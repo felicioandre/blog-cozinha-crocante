@@ -96,7 +96,7 @@ Ao confirmar uma linha, `jogo.js` normaliza a tentativa (`normalize('NFD')` sem 
 Passada 1 marca as letras certas e conta as letras restantes da palavra. Passada 2 marca presentes só enquanto houver letra sobrando. Isso trata repetições como no Termo/Wordle. A dica é expressa por classe CSS e por `aria-label` e símbolo (não só cor). A comparação usa a palavra sem acento; a palavra do dia com acento só é exibida ao fim.
 
 ### 10. Integração com o restante do build
-- `lateral_esq()`: item de menu "Jogo do dia" só quando o jogo existe.
+- `lateral_esq()`: itens de menu "Jogo palavra do dia" (lateral) e "Palavra do dia" (topo), só quando o jogo existe. A página do jogo não tem colunas laterais nem rodapé e usa a altura da janela. As regras ficam num `<dialog>` aberto por um botão "?".
 - Sitemap: `/palavra-do-dia/` entra com `lastmod` do dia do build.
 - `cabecalhos_cloudflare()`: `{BASE}/jogo.json` com `max-age=0, must-revalidate`, igual `busca.json`; `/dicionario/*` com cache longo (arquivos com `?v=`).
 - `README.md`: seção sobre o campo `palavra`, o dicionário e o script, e o crédito à lista de origem.
