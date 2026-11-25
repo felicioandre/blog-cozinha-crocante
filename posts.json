@@ -5,6 +5,7 @@
     "titulo": "Frango crocante na air fryer",
     "resumo": "Sobrecoxa dourada por fora e suculenta por dentro, com tempero de despensa.",
     "emoji": "🍗",
+    "palavra": "frango",
     "imagem": "01-frango-airfryer.png",
     "cor": "#fde3d3",
     "chave": [
@@ -67,6 +68,7 @@
     "titulo": "Omelete cremoso de frigideira",
     "resumo": "Pronto em 5 minutos, com queijo derretido e tomate. Ótimo para jantar corrido.",
     "emoji": "🍳",
+    "palavra": "omelete",
     "imagem": "02-omelete-cremoso.png",
     "cor": "#fff0c2",
     "chave": [
@@ -121,6 +123,7 @@
     "titulo": "Batata rústica na air fryer",
     "resumo": "Com casca, alecrim e bem crocante. Acompanha qualquer prato.",
     "emoji": "🥔",
+    "palavra": "batata",
     "imagem": "04-batata-rustica.png",
     "cor": "#f6e7c8",
     "chave": [
@@ -173,6 +176,7 @@
     "titulo": "Banana caramelizada com canela",
     "resumo": "Sobremesa de 8 minutos com 4 ingredientes. Fica ótima com sorvete.",
     "emoji": "🍌",
+    "palavra": "banana",
     "cor": "#ffe9a8",
     "chave": [
       "banana",
@@ -224,6 +228,7 @@
     "titulo": "Maçã assada com canela na air fryer",
     "resumo": "Doce sem complicação: macia, perfumada e pronta em 20 minutos.",
     "emoji": "🍎",
+    "palavra": "maca",
     "cor": "#fbd5d0",
     "chave": [
       "maçã",
@@ -276,6 +281,7 @@
     "titulo": "Pão de alho na air fryer",
     "resumo": "Casquinha dourada e miolo macio, pronto em 15 minutos para acompanhar o churrasco ou a sopa.",
     "emoji": "🥖",
+    "palavra": "alho",
     "cor": "#f8e3c2",
     "chave": [
       "pão francês",
@@ -328,6 +334,7 @@
     "titulo": "Linguiça com cebola na air fryer",
     "resumo": "Linguiça dourada e cebola macia, com quase nenhum trabalho e pouca gordura espirrando.",
     "emoji": "🌭",
+    "palavra": "linguica",
     "cor": "#f6d9c4",
     "chave": [
       "linguiça",
@@ -377,6 +384,7 @@
     "titulo": "Legumes assados na air fryer",
     "resumo": "Abobrinha, cenoura e brócolis dourados nas pontas. Ótimo para quem quer comer mais legumes.",
     "emoji": "🥦",
+    "palavra": "legumes",
     "cor": "#dcebd2",
     "chave": [
       "abobrinha",
@@ -431,6 +439,7 @@
     "titulo": "Empanado crocante de frango",
     "resumo": "Tirinhas de peito de frango empanadas, bem crocantes, sem fritura de imersão.",
     "emoji": "🍗",
+    "palavra": "empanado",
     "cor": "#fbe0b8",
     "chave": [
       "frango",
@@ -490,6 +499,7 @@
     "titulo": "Asinhas de frango na air fryer",
     "resumo": "Pele crocante e carne macia, com tempero simples de páprica e alho.",
     "emoji": "🍖",
+    "palavra": "asinhas",
     "cor": "#f7d6b3",
     "chave": [
       "frango",
@@ -542,6 +552,7 @@
     "titulo": "Tilápia com limão na air fryer",
     "resumo": "Peixe suculento em 15 minutos, sem cheiro forte na cozinha.",
     "emoji": "🐟",
+    "palavra": "tilapia",
     "cor": "#d8e8f0",
     "chave": [
       "tilápia",
@@ -596,6 +607,7 @@
     "titulo": "Hambúrguer caseiro na air fryer",
     "resumo": "Carne moída temperada na hora, suculenta, com queijo derretido por cima.",
     "emoji": "🍔",
+    "palavra": "hamburguer",
     "cor": "#f3d3b5",
     "chave": [
       "carne moída",
@@ -651,6 +663,7 @@
     "titulo": "Rodelas de batata-doce na air fryer",
     "resumo": "Doce por dentro, dourada por fora. Serve de acompanhamento ou lanche.",
     "emoji": "🍠",
+    "palavra": "rodelas",
     "cor": "#f1d0b8",
     "chave": [
       "batata-doce",
@@ -700,6 +713,7 @@
     "titulo": "Queijo coalho na air fryer",
     "resumo": "Petisco dourado e quentinho em menos de 10 minutos, com orégano e um fio de mel.",
     "emoji": "🧀",
+    "palavra": "queijo",
     "cor": "#fdeab8",
     "chave": [
       "queijo coalho"
@@ -746,6 +760,7 @@
     "titulo": "Bife acebolado na frigideira",
     "resumo": "Clássico de almoço: bife selado e cebola macia, pronto em 15 minutos.",
     "emoji": "🥩",
+    "palavra": "bife",
     "cor": "#f2cdc4",
     "chave": [
       "bife",
@@ -796,6 +811,7 @@
     "titulo": "Macarrão alho e óleo",
     "resumo": "Jantar de 15 minutos com poucos ingredientes e muito sabor.",
     "emoji": "🍝",
+    "palavra": "macarrao",
     "cor": "#f8e5b5",
     "chave": [
       "espaguete|macarrão",
@@ -849,6 +865,7 @@
     "titulo": "Crepioca de queijo",
     "resumo": "Mistura de crepe e tapioca com 3 ingredientes. Pronta em 5 minutos.",
     "emoji": "🫓",
+    "palavra": "crepioca",
     "cor": "#fbeccc",
     "chave": [
       "ovo",
@@ -901,6 +918,7 @@
     "titulo": "Ovos mexidos cremosos",
     "resumo": "O segredo é o fogo baixo e tirar do fogo ainda úmido.",
     "emoji": "🥚",
+    "palavra": "ovos",
     "cor": "#fff0b8",
     "chave": [
       "ovo",
@@ -951,6 +969,7 @@
     "titulo": "Panqueca de presunto e queijo",
     "resumo": "Massa de liquidificador, recheio simples e pronta em 25 minutos.",
     "emoji": "🥞",
+    "palavra": "panqueca",
     "cor": "#f9e1bf",
     "chave": [
       "ovo",
@@ -1008,6 +1027,7 @@
     "titulo": "Strogonoff de frango rápido",
     "resumo": "Um clássico de família feito em uma frigideira funda, em 25 minutos.",
     "emoji": "🍲",
+    "palavra": "strogonoff",
     "cor": "#f6d4c6",
     "chave": [
       "frango",
@@ -1065,6 +1085,7 @@
     "titulo": "Carne moída com legumes",
     "resumo": "Refogado simples e saudável, ótimo para o almoço e para marmitas.",
     "emoji": "🥘",
+    "palavra": "carne",
     "cor": "#f1d4bd",
     "chave": [
       "carne moída",
@@ -1123,6 +1144,7 @@
     "titulo": "Misto quente na frigideira",
     "resumo": "Pão crocante por fora, queijo derretido por dentro, em menos de 10 minutos.",
     "emoji": "🥪",
+    "palavra": "misto",
     "cor": "#f8e6bd",
     "chave": [
       "pão de forma",
@@ -1170,6 +1192,7 @@
     "titulo": "Panqueca americana fofinha",
     "resumo": "Café da manhã de fim de semana, com mel, frutas ou o que você tiver.",
     "emoji": "🥞",
+    "palavra": "americana",
     "cor": "#fbe3b8",
     "chave": [
       "farinha de trigo",
@@ -1229,6 +1252,7 @@
     "titulo": "Rabanada na air fryer",
     "resumo": "Rabanada sem fritura, com casquinha de canela e açúcar. Boa para o pão amanhecido.",
     "emoji": "🍞",
+    "palavra": "rabanada",
     "imagem": "03-rabanada.png",
     "cor": "#f6dcb4",
     "chave": [
@@ -1282,6 +1306,7 @@
     "titulo": "Brownie de chocolate na air fryer",
     "resumo": "Casquinha crocante e centro macio, em uma forma pequena.",
     "emoji": "🍫",
+    "palavra": "brownie",
     "cor": "#e3cdbd",
     "chave": [
       "chocolate meio amargo",
@@ -1335,6 +1360,7 @@
     "titulo": "Cookie de banana e aveia",
     "resumo": "Dois ingredientes na base, sem farinha de trigo e sem açúcar adicionado.",
     "emoji": "🍪",
+    "palavra": "cookie",
     "cor": "#f2dfb7",
     "chave": [
       "banana",
@@ -1384,6 +1410,7 @@
     "titulo": "Abacaxi grelhado com canela",
     "resumo": "Sobremesa leve que fica ótima com sorvete, iogurte ou sozinha.",
     "emoji": "🍍",
+    "palavra": "abacaxi",
     "cor": "#fff0a8",
     "chave": [
       "abacaxi",
@@ -1434,6 +1461,7 @@
     "titulo": "Tapioca de banana com canela",
     "resumo": "Lanche doce, sem glúten e pronto em 5 minutos.",
     "emoji": "🌯",
+    "palavra": "tapioca",
     "cor": "#fbeac2",
     "chave": [
       "goma de tapioca",
@@ -1483,6 +1511,7 @@
     "titulo": "Mini pizza de pão sírio",
     "resumo": "Massa fina e crocante, pronta em 10 minutos. Ótima para a criançada.",
     "emoji": "🍕",
+    "palavra": "pizza",
     "cor": "#f8d9c0",
     "chave": [
       "pão sírio",
@@ -1535,6 +1564,7 @@
     "titulo": "Ovos ao molho de tomate (shakshuka rápida)",
     "resumo": "Ovos cozidos no molho de tomate temperado, em uma frigideira só.",
     "emoji": "🍳",
+    "palavra": "molho",
     "cor": "#f8d3c4",
     "chave": [
       "ovo",
@@ -1594,6 +1624,7 @@
     "titulo": "Brigadeiro de colher na frigideira",
     "resumo": "Sobremesa cremosa com 3 ingredientes, pronta em 10 minutos e sem complicação.",
     "emoji": "🍫",
+    "palavra": "brigadeiro",
     "cor": "#e9d2c0",
     "chave": [
       "leite condensado",
@@ -1644,6 +1675,7 @@
     "titulo": "Churros de pão de forma na air fryer",
     "resumo": "Palitos crocantes com açúcar e canela, prontos em 10 minutos, com recheio de doce de leite se quiser.",
     "emoji": "🥨",
+    "palavra": "churros",
     "cor": "#f5dfbf",
     "chave": [
       "pão de forma",
@@ -1701,6 +1733,7 @@
     "titulo": "Maçã crocante com aveia na frigideira",
     "resumo": "Maçã macia com canela e uma cobertura de aveia dourada, pronta em 15 minutos.",
     "emoji": "🍎",
+    "palavra": "aveia",
     "cor": "#fbdcd8",
     "chave": [
       "maçã",
@@ -1761,6 +1794,7 @@
     "titulo": "Bolinho de arroz crocante na frigideira",
     "resumo": "Aproveite o arroz da geladeira: bolinhos dourados e crocantes por fora, com queijo derretido por dentro.",
     "emoji": "🍚",
+    "palavra": "bolinho",
     "cor": "#fdf3d0",
     "chave": [
       "arroz cozido",
@@ -1820,6 +1854,7 @@
     "titulo": "Pastel de queijo na air fryer",
     "resumo": "Massa de pastel crocante e queijo derretido por dentro, sem fritura de imersão: pronto em poucos minutos.",
     "emoji": "🥟",
+    "palavra": "pastel",
     "cor": "#fff0cc",
     "chave": [
       "massa de pastel",
@@ -1877,6 +1912,7 @@
     "titulo": "Mini bolo de iogurte na air fryer",
     "resumo": "Bolinhos fofinhos de iogurte com cheirinho de limão, prontos em menos de meia hora e sem sujar o forno.",
     "emoji": "🧁",
+    "palavra": "bolo",
     "cor": "#ffeaf2",
     "chave": [
       "iogurte",
@@ -1937,6 +1973,7 @@
     "titulo": "Romeu e Julieta crocante na air fryer",
     "resumo": "Pão de forma recheado com queijo e goiabada, dourado e crocante por fora e derretido por dentro, pronto em 12 minutos.",
     "emoji": "🥪",
+    "palavra": "romeu",
     "cor": "#ffe9e4",
     "chave": [
       "pão de forma",

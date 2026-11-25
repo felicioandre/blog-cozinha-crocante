@@ -16,8 +16,8 @@
 
 ## 3. Palavras das receitas
 
-- [ ] 3.1 Montar a lista proposta (slug → palavra de 4 a 10 letras ligada ao prato, sem repetir, variando os tamanhos) e **mostrar ao usuário antes de alterar o `posts.json`**. Verificar com a aprovação explícita da lista.
-- [ ] 3.2 Gravar `palavra` nas receitas aprovadas, sem remover nenhum link de afiliado nem mudar slugs, e rodar `python3 scripts/dicionario.py sincronizar`. Verificar com `python3 build.py --check` (OK, sem erro) e `git diff posts.json` mostrando só linhas `palavra` adicionadas.
+- [x] 3.1 Montar a lista proposta (slug → palavra de 4 a 10 letras ligada ao prato, sem repetir, variando os tamanhos) e **mostrar ao usuário antes de alterar o `posts.json`**. Verificar com a aprovação explícita da lista.
+- [x] 3.2 Gravar `palavra` nas receitas aprovadas, sem remover nenhum link de afiliado nem mudar slugs, e rodar `python3 scripts/dicionario.py sincronizar`. Verificar com `python3 build.py --check` (OK, sem erro) e `git diff posts.json` mostrando só linhas `palavra` adicionadas.
 
 ## 4. Página do jogo
 
