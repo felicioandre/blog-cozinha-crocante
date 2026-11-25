@@ -1930,5 +1930,62 @@
         "busca": "batedor fouet"
       }
     ]
+  },
+  {
+    "slug": "romeu-e-julieta-crocante-air-fryer",
+    "publicado": "2026-11-25",
+    "titulo": "Romeu e Julieta crocante na air fryer",
+    "resumo": "Pão de forma recheado com queijo e goiabada, dourado e crocante por fora e derretido por dentro, pronto em 12 minutos.",
+    "emoji": "🥪",
+    "cor": "#ffe9e4",
+    "chave": [
+      "pão de forma",
+      "queijo minas|queijo mussarela",
+      "goiabada"
+    ],
+    "opc": [
+      "manteiga",
+      "canela"
+    ],
+    "tags": [
+      "airfryer",
+      "doce"
+    ],
+    "tempo": "12 min",
+    "porcoes": "2 sanduíches",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "4 fatias de pão de forma",
+      "4 fatias finas de queijo minas frescal ou mussarela",
+      "4 fatias finas de goiabada (cerca de 60 g)",
+      "1 colher (sopa) de manteiga derretida",
+      "1 pitada de canela em pó (opcional)"
+    ],
+    "passos": [
+      "Monte 2 sanduíches: sobre uma fatia de pão coloque o queijo, a goiabada e, se quiser, a canela. Feche com outra fatia.",
+      "Pincele a manteiga derretida por fora dos dois lados de cada sanduíche.",
+      "Pré-aqueça a air fryer a 180 °C por 3 minutos.",
+      "Coloque os sanduíches na cesta, sem sobrepor, e asse por 4 minutos.",
+      "Vire com cuidado e asse mais 3 a 4 minutos, até dourar e o queijo amolecer.",
+      "Deixe descansar 2 minutos antes de cortar ao meio: a goiabada fica bem quente."
+    ],
+    "dica": "Corte a goiabada em fatias finas e deixe uma borda livre de 1 cm no pão. Assim o recheio não escorre e o pão não gruda na cesta.",
+    "produtos": [
+      {
+        "nome": "Air fryer",
+        "nota": "Dá a crocância do pão na chapa em poucos minutos",
+        "busca": "air fryer"
+      },
+      {
+        "nome": "Pincel culinário",
+        "nota": "Espalha a manteiga por igual para dourar parelho",
+        "busca": "pincel culinario"
+      },
+      {
+        "nome": "Pegador de cozinha",
+        "nota": "Vira o sanduíche quente sem se queimar",
+        "busca": "pegador de cozinha"
+      }
+    ]
   }
 ]
