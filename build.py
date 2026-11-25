@@ -563,10 +563,10 @@ def pagina_jogo(jogo):
     linhas = []
     for i, linha in enumerate(TECLAS_JOGO):
         teclas = "".join(f'<button type="button" class="tecla" data-tecla="{c}">{c.upper()}</button>' for c in linha)
-        if i == 1:
-            teclas = '<button type="button" class="tecla larga" data-acao="enter">Enter</button>' + teclas
-        if i == 2:
+        if i == 0:
             teclas += '<button type="button" class="tecla larga" data-acao="apagar" aria-label="Apagar">⌫</button>'
+        if i == 2:
+            teclas += '<button type="button" class="tecla larga" data-acao="enter">Enter</button>'
         linhas.append(f'<div class="teclado-linha">{teclas}</div>')
     corpo = f"""<section class="box hero">
   <div class="box-h"><h2>jogo do dia</h2></div>

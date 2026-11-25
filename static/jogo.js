@@ -161,7 +161,10 @@
     if (e.target && e.target.tagName === 'BUTTON' && (e.key === 'Enter' || e.key === ' ')) return;
     if (e.key === 'Enter') { e.preventDefault(); confirmar(); }
     else if (e.key === 'Backspace') { e.preventDefault(); apagar(); }
-    else if (/^[a-zA-ZçÇ]$/.test(e.key)) digitar(normalizar(e.key));
+    else if (e.key.length === 1 && !e.repeat) {
+      const letra = normalizar(e.key);   // aceita acento e ç: á -> a, ç -> c
+      if (/^[a-z]$/.test(letra)) digitar(letra);
+    }
   });
 
   el.teclado.addEventListener('click', e => {
