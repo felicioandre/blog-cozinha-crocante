@@ -41,7 +41,7 @@
   .menu li{border-bottom:1px solid #e3ebf8}
   .menu a,.menu button{display:flex;gap:6px;width:100%;padding:6px 4px;font:12px Verdana,Tahoma,sans-serif;color:var(--link);text-decoration:none;background:none;border:0;cursor:pointer;text-align:left}
   .menu i{font:900 13px/1 'Font Awesome 6 Free';font-style:normal;width:16px;text-align:center;flex:none;align-self:center}
-  .menu .fa-house:before{content:'\f015'}.menu .fa-fire:before{content:'\f06d'}.menu .fa-kitchen-set:before{content:'\e51a'}.menu .fa-burger:before{content:'\f805'}.menu .fa-cake-candles:before{content:'\f1fd'}.menu .fa-magnifying-glass:before{content:'\f002'}
+  .menu .fa-house:before{content:'\f015'}.menu .fa-fire:before{content:'\f06d'}.menu .fa-kitchen-set:before{content:'\e51a'}.menu .fa-burger:before{content:'\f805'}.menu .fa-cake-candles:before{content:'\f1fd'}.menu .fa-magnifying-glass:before{content:'\f002'}.menu .fa-spell-check:before{content:'\f891'}
   .menu a:hover,.menu button:hover{background:var(--faixa);text-decoration:underline}
   .ficha{margin:8px 0 0;text-align:left;font-size:11.5px}
   .ficha dt{color:var(--muted);float:left;clear:left;margin-right:4px}
@@ -277,3 +277,30 @@
     .big-thumb{order:-1;height:120px;font-size:56px}
     .aba{writing-mode:horizontal-tb;top:auto;bottom:14px;right:14px;transform:none;border-radius:6px;padding:10px 14px}
   }
+
+  /* ---- jogo da palavra do dia (/jogo/) ---- */
+  .jogo{text-align:center}
+  .jogo h1{font-size:18px;margin-bottom:6px}
+  .jogo-regras{color:var(--muted);font-size:12px;max-width:520px;margin:0 auto 10px}
+  .jogo-aviso{min-height:20px;color:var(--tomato-d);font-weight:700;font-size:12px;margin:0 0 6px}
+  .grade{display:grid;gap:4px;max-width:min(100%,520px);margin:0 auto 12px}
+  .linha{display:grid;grid-template-columns:repeat(var(--colunas),minmax(0,1fr));gap:4px}
+  .celula{aspect-ratio:1;display:grid;place-items:center;border:2px solid var(--line);border-radius:4px;background:#fff;font:700 clamp(12px,4vw,20px)/1 Verdana,Tahoma,sans-serif;color:var(--ink);position:relative}
+  .celula.digitando{border-color:var(--blue)}
+  .celula.c-certa{background:#3f8f5a;border-color:#3f8f5a;color:#fff}
+  .celula.c-presente{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+  .celula.c-ausente{background:#8a93a8;border-color:#8a93a8;color:#fff}
+  .celula.c-certa::after{content:'\2713';position:absolute;top:1px;right:3px;font-size:9px}
+  .celula.c-presente::after{content:'\25D0';position:absolute;top:1px;right:3px;font-size:9px}
+  .celula.c-ausente::after{content:'\2715';position:absolute;top:1px;right:3px;font-size:9px}
+  .teclado{display:grid;gap:6px;max-width:520px;margin:0 auto}
+  .teclado-linha{display:flex;justify-content:center;gap:4px}
+  .tecla{flex:1 1 0;min-width:0;max-width:44px;height:40px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);font:700 12px Verdana,Tahoma,sans-serif;cursor:pointer;padding:0}
+  .tecla.larga{flex:1.6 1 0;max-width:64px;font-size:11px}
+  .tecla.t-certa{background:#3f8f5a;border-color:#3f8f5a;color:#fff}
+  .tecla.t-presente{background:var(--sun);border-color:var(--sun)}
+  .tecla.t-ausente{background:#8a93a8;border-color:#8a93a8;color:#fff}
+  .tecla:focus-visible,.jogo-receita:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+  .jogo-fim{margin:14px auto 0;max-width:520px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--faixa);text-align:center}
+  .jogo-fim p{margin:4px 0}
+  .jogo-receita{font-weight:700;color:var(--link)}

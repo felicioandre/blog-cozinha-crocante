@@ -27,6 +27,7 @@ import random
 import re
 import shutil
 import sys
+import unicodedata
 import urllib.parse
 from pathlib import Path
 
@@ -63,6 +64,25 @@ LOJAS = [
 ]
 
 
+# ----------------------------------------------------------------- jogo da palavra do dia
+DICIONARIO = STATIC / "dicionario"          # static/dicionario/<n>.txt, gerado por scripts/dicionario.py
+FORMA_PALAVRA = re.compile(r"[a-z]{4,10}")  # depois de normalizar (sem acento, minúscula)
+_dicionarios = {}
+
+
+def normalizar_palavra(s):
+    s = unicodedata.normalize("NFD", str(s).strip().lower())
+    return "".join(c for c in s if unicodedata.category(c) != "Mn")
+
+
+def dicionario(n):
+    """palavras de n letras (conjunto de strings normalizadas); vazio se o arquivo não existir"""
+    if n not in _dicionarios:
+        p = DICIONARIO / f"{n}.txt"
+        _dicionarios[n] = set(p.read_text("utf-8").split()) if p.exists() else set()
+    return _dicionarios[n]
+
+
 def hoje():
     if os.environ.get("BUILD_DATE"):
         return datetime.date.fromisoformat(os.environ["BUILD_DATE"])
@@ -96,7 +116,8 @@ def carregar_posts():
     aff = json.loads((ROOT / "affiliates.json").read_text("utf-8"))
     erros, avisos = [], []
     slugs = set()
-    obrig = ["slug", "publicado", "titulo", "resumo", "emoji", "cor", "chave", "opc", "tags",
+    palavras_vistas = {}
+    obrig =["slug", "publicado", "titulo", "resumo", "emoji", "cor", "chave", "opc", "tags",
              "tempo", "porcoes", "nivel", "ingredientes", "passos", "dica", "produtos"]
     for i, r in enumerate(posts):
         nome = r.get("slug", f"#{i}")
@@ -128,6 +149,17 @@ def carregar_posts():
                 avisos.append(f"{nome}: produto '{p['busca']}' não está em affiliates.json (usando link de busca)")
         if r.get("imagem") and not (ROOT / "img" / r["imagem"]).exists():
             erros.append(f"{nome}: imagem 'img/{r['imagem']}' não encontrada")
+        if r.get("palavra"):
+            norm = normalizar_palavra(r["palavra"])
+            if not FORMA_PALAVRA.fullmatch(norm):
+                erros.append(f"{nome}: 'palavra' deve ter de 4 a 10 letras de a-z (com ou sem acento), sem espaço, número ou hífen")
+            elif norm in palavras_vistas:
+                erros.append(f"{nome}: palavra '{r['palavra']}' repetida (também em {palavras_vistas[norm]})")
+            else:
+                palavras_vistas[norm] = nome
+                if norm not in dicionario(len(norm)):
+                    erros.append(f"{nome}: palavra '{r['palavra']}' não está em static/dicionario/{len(norm)}.txt. "
+                                 "Rode: python3 scripts/dicionario.py sincronizar")
     if erros:
         print("ERROS nos dados:")
         for e in erros:
@@ -138,6 +170,8 @@ def carregar_posts():
     if not visiveis:
         print("ERRO: nenhuma receita publicada (verifique as datas em 'publicado' no posts.json).")
         sys.exit(1)
+    if sum(1 for r in visiveis if r.get("palavra")) < 2:
+        avisos.append("menos de 2 receitas publicadas com 'palavra': o jogo da palavra do dia não será gerado")
     agendadas = len(posts) - len(visiveis)
     visiveis = sorted(visiveis, key=lambda r: r["publicado"], reverse=True)   # estável: mantém a ordem do arquivo nas datas iguais
     return visiveis, aff, avisos, agendadas
@@ -346,6 +380,8 @@ def lateral_esq():
     menu = f'<li><a href="{url("/")}"><i class="fa-solid fa-house" aria-hidden="true"></i> <span>Início</span></a></li>'
     menu += "".join(f'<li><a href="{url("/categoria/" + c[1] + "/")}"><i class="fa-solid {ICONE_CAT[k]}" aria-hidden="true"></i> <span>{esc(c[0])}</span></a></li>' for k, c in CATEGORIAS.items())
     menu += '<li><button type="button" data-act="abrir"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> <span>O que tenho em casa?</span></button></li>'
+    if CTX.get("jogo"):
+        menu += f'<li><a href="{url("/jogo/")}"><i class="fa-solid fa-spell-check" aria-hidden="true"></i> <span>Jogo do dia</span></a></li>'
     comunidades = "".join(
         f'<a class="com" href="{url("/categoria/" + c[1] + "/")}"><span class="com-ico">{EMOJI_CAT[k]}</span>'
         f'<span class="com-nome">{esc(c[0])}</span><span class="com-n">{sum(1 for r in posts if k in r["tags"])} receitas</span></a>'
@@ -381,6 +417,38 @@ def escolhas_do_dia(posts, d):
     if len(ordem) > 1 and ordem[0]["slug"] == ontem["slug"]:
         ordem.append(ordem.pop(0))
     return ordem[0], ordem[1:4]
+
+
+def palavra_do_dia(posts, d):
+    """Receita cuja palavra vale hoje. Sorteio determinístico pela data, entre as receitas publicadas
+    com 'palavra'; não repete a de ontem. None se houver menos de 2 candidatas."""
+    cands = sorted((r for r in posts if r.get("palavra")), key=lambda r: r["slug"])
+    if len(cands) < 2:
+        return None
+
+    def embaralhar(dia):
+        ordem = list(cands)
+        random.Random("jogo-" + dia.isoformat()).shuffle(ordem)
+        return ordem
+
+    ontem = embaralhar(d - datetime.timedelta(days=1))[0]
+    ordem = embaralhar(d)
+    if ordem[0]["slug"] == ontem["slug"]:
+        ordem.append(ordem.pop(0))
+    return ordem[0]
+
+
+def dados_jogo(r, d):
+    """conteúdo de jogo.json: só a palavra de hoje (nenhuma outra palavra é publicada)"""
+    n = len(normalizar_palavra(r["palavra"]))
+    return {
+        "data": d.isoformat(),
+        "palavra": r["palavra"].lower(),
+        "tamanho": n,
+        "slug": r["slug"],
+        "titulo": r["titulo"],
+        "dicionario": url(f"/dicionario/{n}.txt") + "?v=" + hash_arquivo(DICIONARIO / f"{n}.txt"),
+    }
 
 
 def lateral_dir():
@@ -482,6 +550,39 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 </body>
 </html>
 """
+
+
+TECLAS_JOGO = ["qwertyuiop", "asdfghjklç", "zxcvbnm"]
+
+
+def pagina_jogo(jogo):
+    n = jogo["tamanho"]
+    grade = "".join(
+        '<div class="linha">' + "".join('<span class="celula" aria-hidden="true"></span>' for _ in range(n)) + "</div>"
+        for _ in range(6))
+    linhas = []
+    for i, linha in enumerate(TECLAS_JOGO):
+        teclas = "".join(f'<button type="button" class="tecla" data-tecla="{c}">{c.upper()}</button>' for c in linha)
+        if i == 1:
+            teclas = '<button type="button" class="tecla larga" data-act="enter">Enter</button>' + teclas
+        if i == 2:
+            teclas += '<button type="button" class="tecla larga" data-act="apagar" aria-label="Apagar">⌫</button>'
+        linhas.append(f'<div class="teclado-linha">{teclas}</div>')
+    corpo = f"""<section class="box hero">
+  <div class="box-h"><h2>jogo do dia</h2></div>
+  <div class="box-c jogo" id="jogo" style="--colunas:{n}">
+    <h1>Descubra a <em>palavra do dia</em></h1>
+    <p class="jogo-regras">Palavra de {n} letras em 6 tentativas. Cada letra fica <b>verde</b> (lugar certo), <b>amarela</b> (está na palavra, em outro lugar) ou <b>cinza</b> (não está). Só valem palavras que existem.</p>
+    <p class="jogo-aviso" id="jogo-aviso" aria-live="polite"></p>
+    <div class="grade" id="grade" role="table" aria-label="Tentativas">{grade}</div>
+    <div class="teclado" id="teclado" aria-label="Teclado">{"".join(linhas)}</div>
+    <div class="jogo-fim" id="jogo-fim" aria-live="polite" hidden></div>
+    <noscript><p>O jogo precisa de JavaScript para funcionar.</p></noscript>
+  </div>
+</section>"""
+    return pagina(titulo=f"Jogo da palavra do dia — {NOME}",
+                  descricao=f"Descubra a palavra do dia, de {n} letras, em 6 tentativas. No fim, uma receita do {NOME} ligada à palavra.",
+                  caminho="/jogo/", corpo=corpo)
 
 
 def thumb(r, classe):
@@ -648,6 +749,12 @@ def cabecalhos_cloudflare():
 {b}/busca.json
   Cache-Control: public, max-age=0, must-revalidate
 
+{b}/jogo.json
+  Cache-Control: public, max-age=0, must-revalidate
+
+{b}/dicionario/*
+  Cache-Control: public, max-age=31536000, immutable
+
 {b}/version.json
   Cache-Control: no-store
 """
@@ -680,6 +787,8 @@ def main():
     for f in STATIC.iterdir():
         if f.is_file():
             shutil.copy(f, DIST / "assets" / f.name)
+    if DICIONARIO.exists():   # dicionário do jogo: só os arquivos de palavras, em /dicionario/
+        shutil.copytree(DICIONARIO, DIST / "dicionario")
 
     # imagens de compartilhamento
     try:
@@ -694,6 +803,10 @@ def main():
         gerar_card(NOME, SITE.get("slogan", ""), "", DIST / "og" / "site.jpg")
 
     CTX["posts"] = posts
+    d_jogo = hoje()
+    escolhida = palavra_do_dia(posts, d_jogo)
+    jogo = dados_jogo(escolhida, d_jogo) if escolhida else None
+    CTX["jogo"] = jogo
 
     # páginas das receitas
     for r in posts:
@@ -731,6 +844,11 @@ def main():
                         {"@type": "ListItem", "position": 1, "name": "Início", "item": url_abs("/")},
                         {"@type": "ListItem", "position": 2, "name": nome, "item": url_abs(f"/categoria/{slug}/")}]}]))
 
+    # jogo da palavra do dia (só se houver ao menos 2 palavras)
+    if jogo:
+        escrever("jogo.json", json.dumps(jogo, ensure_ascii=False, separators=(",", ":")))
+        escrever("jogo/index.html", pagina_jogo(jogo))
+
     # 404
     escrever("404.html", pagina(
         titulo=f"Página não encontrada — {NOME}", descricao="Essa página não existe.", caminho="/404.html", noindex=True,
@@ -745,6 +863,8 @@ def main():
     urls = [("/", max(r["publicado"] for r in posts))]
     urls += [(f"/categoria/{s}/", max(r["publicado"] for r in posts)) for (_, s, _, _) in CATEGORIAS.values()]
     urls += [(f"/receitas/{r['slug']}/", r["publicado"]) for r in posts]
+    if jogo:
+        urls.append(("/jogo/", d_jogo.isoformat()))
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sm += "".join(f"  <url><loc>{esc(url_abs(c))}</loc><lastmod>{d}</lastmod></url>\n" for c, d in urls) + "</urlset>\n"
     escrever("sitemap.xml", sm)

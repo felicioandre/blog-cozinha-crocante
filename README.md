@@ -83,8 +83,19 @@ Acrescente um objeto no fim de `posts.json` e faça o push. Campos:
 | `produtos` | utensílios: `{ "nome", "nota", "busca" }`. `busca` é a chave em `affiliates.json` |
 | `imagem` | (opcional) arquivo em `img/`, por exemplo `"frango.jpg"`. Passa a ser a foto do card e da prévia nas redes |
 | `video` | (opcional) `{ "url": "...", "canal": "..." }` link para o vídeo original no YouTube |
+| `palavra` | (opcional) palavra do jogo da palavra do dia: 4 a 10 letras, sem espaço ou hífen, única entre as receitas e presente no dicionário (`static/dicionario/<tamanho>.txt`). Receita sem `palavra` fica fora do jogo |
 
 Para conferir os dados sem gerar nada: `python3 build.py --check`. O build para com mensagem clara se algo estiver errado.
+
+## Jogo da palavra do dia
+
+A página `/jogo/` sorteia uma palavra por dia entre as receitas publicadas com `palavra`. A palavra não repete a do dia anterior, e ao acertar ou errar o jogo mostra um link para a receita ligada a ela. Com menos de 2 receitas com `palavra`, o jogo não é gerado.
+
+- Só são aceitas tentativas que existem no dicionário. Palavra inexistente é recusada e não gasta tentativa.
+- O dicionário fica no repositório, em `static/dicionario/4.txt` a `10.txt`, um arquivo por tamanho. O site não depende de serviços externos.
+- Se `python3 build.py --check` disser que a `palavra` de uma receita não está no dicionário, rode `python3 scripts/dicionario.py sincronizar` e faça commit do resultado.
+- `python3 scripts/dicionario.py regenerar` recria os 7 arquivos a partir da lista [fserb/pt-br](https://github.com/fserb/pt-br) (licença MIT, ver `static/dicionario/LICENSE-pt-br.txt`). Precisa de internet e só é preciso para atualizar a base.
+- Mudar `palavra` ou adicionar receitas no mesmo dia pode trocar a palavra de hoje.
 
 ## Links de afiliado
 
