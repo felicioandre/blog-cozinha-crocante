@@ -180,13 +180,24 @@
   /* ---- modal de ajuda ---- */
   const ajuda = document.getElementById('ajuda');
   const abrirAjuda = document.getElementById('ajuda-abrir');
+  const CHAVE_AJUDA = 'cc_jogo_ajuda';   // '1' = regras já exibidas neste navegador
+  function abrirModalAjuda() {
+    if (typeof ajuda.showModal === 'function') ajuda.showModal(); else ajuda.setAttribute('open', '');
+  }
   if (ajuda && abrirAjuda) {
-    abrirAjuda.addEventListener('click', () => {
-      if (typeof ajuda.showModal === 'function') ajuda.showModal(); else ajuda.setAttribute('open', '');
-    });
+    abrirAjuda.addEventListener('click', abrirModalAjuda);
     ajuda.addEventListener('click', e => {            // clique fora da caixa fecha
       if (e.target === ajuda) ajuda.close ? ajuda.close() : ajuda.removeAttribute('open');
     });
+  }
+  // primeira visita: abre as regras sozinho e grava que já foram vistas (leitura com erro conta como primeira visita)
+  if (ajuda) {
+    let vista = false;
+    try { vista = localStorage.getItem(CHAVE_AJUDA) === '1'; } catch (e) { vista = false; }
+    if (!vista) {
+      abrirModalAjuda();
+      try { localStorage.setItem(CHAVE_AJUDA, '1'); } catch (e) { /* navegador bloqueou: abre de novo na próxima visita */ }
+    }
   }
 
   /* ---- início ---- */
