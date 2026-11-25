@@ -140,3 +140,10 @@ O jogo MUST ser jogável só com o teclado e caber em telas de 360 px de largura
 #### Scenario: Anúncio da dica
 - **WHEN** uma tentativa é confirmada
 - **THEN** cada célula expõe a letra e a dica em texto acessível (por exemplo, "a, letra certa")
+
+### Requirement: Imagem e descrição de compartilhamento
+A página do jogo MUST ter uma imagem Open Graph 1200x630 própria (`/og/palavra-do-dia.jpg`), gerada pelo build no mesmo padrão dos cards de receita, com o botão "JOGUE AGORA MESMO!". O subtítulo da imagem e a descrição da página MUST ser genéricos e NÃO MUST revelar o tamanho da palavra do dia.
+
+#### Scenario: Compartilhar a página do jogo
+- **WHEN** o link `/palavra-do-dia/` é compartilhado em uma rede social
+- **THEN** a prévia mostra a imagem `/og/palavra-do-dia.jpg` e uma descrição sem o número de letras

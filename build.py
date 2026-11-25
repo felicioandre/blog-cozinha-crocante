@@ -254,7 +254,7 @@ def _quebrar(d, texto, fonte, largura):
     return linhas
 
 
-def gerar_card(titulo, resumo, linha_meta, destino, foto=None, doce=False):
+def gerar_card(titulo, resumo, linha_meta, destino, foto=None, doce=False, cta="FAÇA AGORA MESMO!"):
     """Cria uma imagem 1200x630 (ideal para WhatsApp, Facebook, X) em JPEG leve, estilo Orkut."""
     from PIL import Image, ImageDraw, ImageFont, ImageOps
     W, H = 1200, 630
@@ -306,7 +306,7 @@ def gerar_card(titulo, resumo, linha_meta, destino, foto=None, doce=False):
 
     # botão CTA
     fb = fonte("DejaVuSans-Bold.ttf", 30)
-    rot = "FAÇA AGORA MESMO!"
+    rot = cta
     bw, bh = int(d.textlength(rot, font=fb)) + 64, 64
     by = H - 50 - bh
     # salgadas: fundo rosa e sombra azul; doces: cores invertidas
@@ -555,7 +555,10 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 TECLAS_JOGO = ["qwertyuiop", "asdfghjklç", "zxcvbnm"]
 
 
-def pagina_jogo(jogo):
+JOGO_OG_RESUMO = "Descubra a palavra do dia em 6 tentativas. No fim, uma receita ligada a ela."
+
+
+def pagina_jogo(jogo, og_image=None):
     n = jogo["tamanho"]
     grade = "".join(
         '<div class="linha" role="row">' + "".join('<span class="celula" aria-hidden="true"></span>' for _ in range(n)) + "</div>"
@@ -591,8 +594,9 @@ def pagina_jogo(jogo):
   <form method="dialog"><button class="ajuda-fechar">Entendi</button></form>
 </dialog>"""
     return pagina(titulo=f"Jogo da palavra do dia — {NOME}",
-                  descricao=f"Descubra a palavra do dia, de {n} letras, em 6 tentativas. No fim, uma receita do {NOME} ligada à palavra.",
+                  descricao=JOGO_OG_RESUMO,
                   caminho="/palavra-do-dia/", corpo=corpo, jogo_pagina=True,
+                  og_image=og_image, og_alt="Jogo da palavra do dia",
                   js_extra=f'<script src="{url("/assets/jogo.js")}?v={hash_arquivo(STATIC / "jogo.js")}" defer></script>\n')
 
 
@@ -858,7 +862,12 @@ def main():
     # jogo da palavra do dia (só se houver ao menos 2 palavras)
     if jogo:
         escrever("jogo.json", json.dumps(jogo, ensure_ascii=False, separators=(",", ":")))
-        escrever("palavra-do-dia/index.html", pagina_jogo(jogo))
+        og_jogo = None
+        if tem_pillow:
+            gerar_card("Jogo da palavra do dia", JOGO_OG_RESUMO, "6 tentativas   •   1 palavra por dia",
+                       DIST / "og" / "palavra-do-dia.jpg", cta="JOGUE AGORA MESMO!")
+            og_jogo = url_abs("/og/palavra-do-dia.jpg")
+        escrever("palavra-do-dia/index.html", pagina_jogo(jogo, og_jogo))
 
     # 404
     escrever("404.html", pagina(
