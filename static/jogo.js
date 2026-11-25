@@ -1,4 +1,4 @@
-/* Cozinha Crocante — jogo da palavra do dia (página /jogo/).
+/* Cozinha Crocante — jogo da palavra do dia (página /palavra-do-dia/).
    A palavra vem de /jogo.json (gerado pelo build); o dicionário do tamanho do dia vem de /dicionario/<n>.txt.
    Só existem palavras que estão no dicionário. */
 (() => {
@@ -168,8 +168,9 @@
     const b = e.target.closest('button');
     if (!b) return;
     if (b.dataset.tecla) digitar(normalizar(b.dataset.tecla));
-    else if (b.dataset.act === 'enter') confirmar();
-    else if (b.dataset.act === 'apagar') apagar();
+    else if (b.dataset.acao === 'enter') confirmar();
+    else if (b.dataset.acao === 'apagar') apagar();
+    b.blur();   // tira o foco do botão: as teclas físicas seguem indo para a página, e Espaço não clica de novo
   });
 
   /* ---- início ---- */

@@ -278,7 +278,7 @@
     .aba{writing-mode:horizontal-tb;top:auto;bottom:14px;right:14px;transform:none;border-radius:6px;padding:10px 14px}
   }
 
-  /* ---- jogo da palavra do dia (/jogo/) ---- */
+  /* ---- jogo da palavra do dia (/palavra-do-dia/) ---- */
   .jogo{text-align:center}
   .jogo h1{font-size:18px;margin-bottom:6px}
   .jogo-regras{color:var(--muted);font-size:12px;max-width:520px;margin:0 auto 10px}
@@ -304,3 +304,18 @@
   .jogo-fim{margin:14px auto 0;max-width:520px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--faixa);text-align:center}
   .jogo-fim p{margin:4px 0}
   .jogo-receita{font-weight:700;color:var(--link)}
+
+  /* ---- página do jogo: uma coluna só, cabe na tela sem rolagem vertical ---- */
+  .pagina-jogo{height:100vh;height:100dvh;overflow:hidden}
+  .pagina-jogo footer{display:none}
+  .layout.so-meio{grid-template-columns:minmax(0,1fr);height:calc(100vh - 51px);height:calc(100dvh - 51px);padding:10px 0;align-items:stretch}
+  .so-meio .col-meio{grid-column:1;min-height:0;display:flex;flex-direction:column}
+  .so-meio .col-meio > section{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;margin-bottom:0}
+  .so-meio .jogo{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px 12px}
+  .so-meio .jogo h1{font-size:16px;margin:0}
+  .so-meio .jogo-regras{margin:0;max-width:560px;font-size:12px}
+  .so-meio .jogo-aviso{margin:0;min-height:18px}
+  .so-meio .grade{flex:0 0 auto;width:min(100%,calc(36dvh * var(--colunas) / 6));aspect-ratio:var(--colunas) / 6;grid-template-rows:repeat(6,minmax(0,1fr));margin:0}
+  .so-meio .teclado{flex:0 0 auto;width:100%;margin:0}
+  .so-meio .jogo-fim{flex:0 0 auto;margin:0;max-width:560px;width:100%}
+  .so-meio .celula{font-size:clamp(12px,3.2dvh,22px)}

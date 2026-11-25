@@ -6,7 +6,7 @@ O blog só tem motivo para a pessoa voltar quando ela procura uma receita. Um jo
 
 ## What Changes
 
-- Nova página `/jogo/` com o jogo da palavra do dia: palavra de 4 a 10 letras (o tamanho muda de um dia para o outro), 6 tentativas, dicas por cor (letra certa no lugar certo, letra existe em outro lugar, letra ausente) e teclado na tela.
+- Nova página `/palavra-do-dia/` com o jogo da palavra do dia: palavra de 4 a 10 letras (o tamanho muda de um dia para o outro), 6 tentativas, dicas por cor (letra certa no lugar certo, letra existe em outro lugar, letra ausente) e teclado na tela.
 - A palavra do dia é sempre ligada a uma receita do blog. Ao acertar ou errar, a página mostra a palavra e um link para a receita correspondente.
 - Só palavras que existem podem ser digitadas: cada tentativa é conferida num dicionário em português. Tentativa com palavra inexistente é recusada e não gasta tentativa.
 - Dicionário **dentro do repositório**, em arquivos minificados por tamanho de palavra (`static/dicionario/4.txt` a `10.txt`). O site não depende de nenhum serviço externo em tempo de execução nem de build. A base é a lista MIT [fserb/pt-br](https://github.com/fserb/pt-br) (léxico, conjugações e palavras de frequência com ICF até 18, mais plurais e femininos regulares), com crédito no repositório.
@@ -23,7 +23,7 @@ O blog só tem motivo para a pessoa voltar quando ela procura uma receita. Um jo
 ### New Capabilities
 - `palavra-do-dia-selecao`: campo `palavra` das receitas (4 a 10 letras), validação no build e sorteio diário da palavra (uma por receita, sem repetir a de ontem, só receitas já publicadas).
 - `dicionario-do-jogo`: dicionário em português guardado no repositório, por tamanho de palavra, com as palavras das receitas incluídas e um script para gerar e atualizar os arquivos.
-- `jogo-palavra-do-dia`: página `/jogo/` com as regras do jogo, teclado, grade de tamanho variável, conferência no dicionário, estado salvo no navegador e link para a receita ao fim da partida.
+- `jogo-palavra-do-dia`: página `/palavra-do-dia/` com as regras do jogo, teclado, grade de tamanho variável, conferência no dicionário, estado salvo no navegador e link para a receita ao fim da partida.
 
 ### Modified Capabilities
 

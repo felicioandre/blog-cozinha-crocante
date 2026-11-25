@@ -7,10 +7,10 @@ Oferecer uma página de jogo diário no estilo Termo, em que a pessoa descobre a
 ## ADDED Requirements
 
 ### Requirement: Página do jogo
-O site MUST ter a página `/jogo/`, com título, regras curtas, grade de 6 linhas e uma coluna por letra da palavra do dia, e teclado na tela. A página MUST ser HTML completo gerado no build (título, descrição e link canônico), sem depender do JavaScript para existir, e MUST aparecer no menu lateral e no `sitemap.xml`.
+O site MUST ter a página `/palavra-do-dia/`, com título, regras curtas, grade de 6 linhas e uma coluna por letra da palavra do dia, e teclado na tela. A página MUST ser HTML completo gerado no build (título, descrição e link canônico), sem depender do JavaScript para existir, e MUST aparecer no menu lateral e no `sitemap.xml`.
 
 #### Scenario: Acesso à página
-- **WHEN** a pessoa abre `/jogo/`
+- **WHEN** a pessoa abre `/palavra-do-dia/`
 - **THEN** vê a grade vazia de 6 linhas, com o número de colunas igual ao tamanho da palavra do dia, e o teclado
 - **AND** o menu lateral tem um link para o jogo
 
@@ -20,7 +20,7 @@ O site MUST ter a página `/jogo/`, com título, regras curtas, grade de 6 linha
 
 #### Scenario: Indexação
 - **WHEN** o build conclui
-- **THEN** `dist/sitemap.xml` lista a URL canônica de `/jogo/`
+- **THEN** `dist/sitemap.xml` lista a URL canônica de `/palavra-do-dia/`
 
 ### Requirement: Tentativas
 A pessoa MUST ter até 6 tentativas. Cada tentativa tem exatamente o tamanho da palavra do dia, digitada no teclado físico ou no da tela e confirmada com Enter.

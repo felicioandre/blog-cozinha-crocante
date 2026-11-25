@@ -89,7 +89,7 @@ Para conferir os dados sem gerar nada: `python3 build.py --check`. O build para 
 
 ## Jogo da palavra do dia
 
-A página `/jogo/` sorteia uma palavra por dia entre as receitas publicadas com `palavra`. A palavra não repete a do dia anterior, e ao acertar ou errar o jogo mostra um link para a receita ligada a ela. Com menos de 2 receitas com `palavra`, o jogo não é gerado.
+A página `/palavra-do-dia/` sorteia uma palavra por dia entre as receitas publicadas com `palavra`. A palavra não repete a do dia anterior, e ao acertar ou errar o jogo mostra um link para a receita ligada a ela. Com menos de 2 receitas com `palavra`, o jogo não é gerado.
 
 - Só são aceitas tentativas que existem no dicionário. Palavra inexistente é recusada e não gasta tentativa.
 - O dicionário fica no repositório, em `static/dicionario/4.txt` a `10.txt`, um arquivo por tamanho. O site não depende de serviços externos.

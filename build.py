@@ -381,7 +381,7 @@ def lateral_esq():
     menu += "".join(f'<li><a href="{url("/categoria/" + c[1] + "/")}"><i class="fa-solid {ICONE_CAT[k]}" aria-hidden="true"></i> <span>{esc(c[0])}</span></a></li>' for k, c in CATEGORIAS.items())
     menu += '<li><button type="button" data-act="abrir"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> <span>O que tenho em casa?</span></button></li>'
     if CTX.get("jogo"):
-        menu += f'<li><a href="{url("/jogo/")}"><i class="fa-solid fa-spell-check" aria-hidden="true"></i> <span>Jogo do dia</span></a></li>'
+        menu += f'<li><a href="{url("/palavra-do-dia/")}"><i class="fa-solid fa-spell-check" aria-hidden="true"></i> <span>Jogo do dia</span></a></li>'
     comunidades = "".join(
         f'<a class="com" href="{url("/categoria/" + c[1] + "/")}"><span class="com-ico">{EMOJI_CAT[k]}</span>'
         f'<span class="com-nome">{esc(c[0])}</span><span class="com-n">{sum(1 for r in posts if k in r["tags"])} receitas</span></a>'
@@ -476,7 +476,7 @@ def lateral_dir():
 
 
 def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_tipo="website",
-           og_alt="", jsonld=None, noindex=False):
+           og_alt="", jsonld=None, noindex=False, jogo_pagina=False):
     canonical = url_abs(caminho)
     css = f"{url('/assets/style.css')}?v={hash_arquivo(STATIC / 'style.css')}"
     js = f"{url('/assets/app.js')}?v={hash_arquivo(STATIC / 'app.js')}"
@@ -484,6 +484,10 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
     dim = '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' if og_dim else ""
     ld = "".join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in (jsonld or []))
     nav = "".join(f'<a href="{url("/categoria/" + s + "/")}">{n}</a>' for (n, s, _, _) in CATEGORIAS.values())
+    if CTX.get("jogo"):
+        nav += f'<a href="{url("/palavra-do-dia/")}">Palavra do dia</a>'
+    esq = "" if jogo_pagina else f'<aside class="col-esq">\n{lateral_esq()}\n</aside>'
+    direita = "" if jogo_pagina else f'<aside class="col-dir">\n{lateral_dir()}\n</aside>'
     gaveta = GAVETA.replace("__TEMPEROS__", esc(", ".join(TEMPEROS) + "."))
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
@@ -517,7 +521,7 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
 <script>window.SITE={json.dumps({"base": BASE})};</script>
 {ld}
 </head>
-<body>
+<body class="{'pagina-jogo' if jogo_pagina else ''}">
 <header class="top">
   <div class="wrap">
     <a class="logo" href="{url('/')}"><img class="logo-img" src="{url('/assets/logo.png')}?v={hash_arquivo(STATIC / 'logo.png')}" alt="" width="30" height="34"><span>cozinha<b>crocante</b></span></a>
@@ -525,16 +529,12 @@ def pagina(*, titulo, descricao, caminho, corpo, og_image=None, og_dim=True, og_
   </div>
 </header>
 
-<div class="wrap layout">
+<div class="wrap layout{' so-meio' if jogo_pagina else ''}">
 <main class="col-meio">
 {corpo}
 </main>
-<aside class="col-esq">
-{lateral_esq()}
-</aside>
-<aside class="col-dir">
-{lateral_dir()}
-</aside>
+{esq}
+{direita}
 </div>
 
 {gaveta}
@@ -564,9 +564,9 @@ def pagina_jogo(jogo):
     for i, linha in enumerate(TECLAS_JOGO):
         teclas = "".join(f'<button type="button" class="tecla" data-tecla="{c}">{c.upper()}</button>' for c in linha)
         if i == 1:
-            teclas = '<button type="button" class="tecla larga" data-act="enter">Enter</button>' + teclas
+            teclas = '<button type="button" class="tecla larga" data-acao="enter">Enter</button>' + teclas
         if i == 2:
-            teclas += '<button type="button" class="tecla larga" data-act="apagar" aria-label="Apagar">⌫</button>'
+            teclas += '<button type="button" class="tecla larga" data-acao="apagar" aria-label="Apagar">⌫</button>'
         linhas.append(f'<div class="teclado-linha">{teclas}</div>')
     corpo = f"""<section class="box hero">
   <div class="box-h"><h2>jogo do dia</h2></div>
@@ -582,7 +582,7 @@ def pagina_jogo(jogo):
 </section>"""
     return pagina(titulo=f"Jogo da palavra do dia — {NOME}",
                   descricao=f"Descubra a palavra do dia, de {n} letras, em 6 tentativas. No fim, uma receita do {NOME} ligada à palavra.",
-                  caminho="/jogo/", corpo=corpo)
+                  caminho="/palavra-do-dia/", corpo=corpo, jogo_pagina=True)
 
 
 def thumb(r, classe):
@@ -847,7 +847,7 @@ def main():
     # jogo da palavra do dia (só se houver ao menos 2 palavras)
     if jogo:
         escrever("jogo.json", json.dumps(jogo, ensure_ascii=False, separators=(",", ":")))
-        escrever("jogo/index.html", pagina_jogo(jogo))
+        escrever("palavra-do-dia/index.html", pagina_jogo(jogo))
 
     # 404
     escrever("404.html", pagina(
@@ -864,7 +864,7 @@ def main():
     urls += [(f"/categoria/{s}/", max(r["publicado"] for r in posts)) for (_, s, _, _) in CATEGORIAS.values()]
     urls += [(f"/receitas/{r['slug']}/", r["publicado"]) for r in posts]
     if jogo:
-        urls.append(("/jogo/", d_jogo.isoformat()))
+        urls.append(("/palavra-do-dia/", d_jogo.isoformat()))
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     sm += "".join(f"  <url><loc>{esc(url_abs(c))}</loc><lastmod>{d}</lastmod></url>\n" for c, d in urls) + "</urlset>\n"
     escrever("sitemap.xml", sm)

@@ -46,7 +46,7 @@ Saída: `{"data": "AAAA-MM-DD", "palavra": "frango", "tamanho": 6, "slug": "..."
 
 - **Alternativa: sorteio no navegador com a lista completa.** Rejeitada: entregaria todas as palavras futuras no código.
 - **Cobertura:** a data vem de `hoje()` (America/Sao_Paulo), a mesma do resto do site. O cron das 07h BRT já reconstrói; não é preciso mexer em `pages.yml`.
-- **Poucas palavras (< 2):** o build avisa, não gera `jogo.json` nem a página `/jogo/`, e `lateral_esq()` não mostra o link.
+- **Poucas palavras (< 2):** o build avisa, não gera `jogo.json` nem a página `/palavra-do-dia/`, e `lateral_esq()` não mostra o link.
 
 ### 3. Dicionário versionado em `static/dicionario/<n>.txt`, um arquivo por tamanho
 Sete arquivos (`4.txt` a `10.txt`), uma palavra por linha, minúsculas, a–z sem acento, ordenadas e sem repetição. São "minificados" porque guardam só a palavra normalizada (sem score, acento nem metadados). Ficam no repositório para o build e o site não dependerem do GitHub de origem.
@@ -76,7 +76,7 @@ Regras das formas regulares (sobre o verbete `w`): `w+s`; `w+es` se terminar em 
 - **Alternativa: o build injeta a palavra no `dist/` sem mexer no repositório.** Rejeitada: o dicionário no repositório deixaria de ser a fonte da verdade e o arquivo em produção divergiria do versionado.
 - **Vazamento aceito:** palavras de receitas publicadas que não estão na lista de origem ficam no arquivo do dicionário e podem ser descobertas por comparação com um dicionário geral. Afeta só palavras como `shakshuka`.
 
-### 6. Página `/jogo/` pré-renderizada, lógica em `static/jogo.js`
+### 6. Página `/palavra-do-dia/` pré-renderizada, lógica em `static/jogo.js`
 `pagina_jogo()` em `build.py` gera o HTML completo (título, descrição, canonical, grade com o tamanho de hoje e teclado como `<button>`), passando por `pagina()` para manter o layout de três colunas. A grade é refeita no navegador a partir do `tamanho` do `jogo.json` (cobre o caso de uma página em cache de ontem). A lógica fica num `static/jogo.js` próprio, carregado só nessa página com `?v=<hash>`. `app.js` (busca) e a gaveta não mudam.
 
 - **Alternativa: estender `app.js`.** Rejeitada: acoplaria o jogo à busca e engordaria o JS de todas as páginas.
@@ -97,7 +97,7 @@ Passada 1 marca as letras certas e conta as letras restantes da palavra. Passada
 
 ### 10. Integração com o restante do build
 - `lateral_esq()`: item de menu "Jogo do dia" só quando o jogo existe.
-- Sitemap: `/jogo/` entra com `lastmod` do dia do build.
+- Sitemap: `/palavra-do-dia/` entra com `lastmod` do dia do build.
 - `cabecalhos_cloudflare()`: `{BASE}/jogo.json` com `max-age=0, must-revalidate`, igual `busca.json`; `/dicionario/*` com cache longo (arquivos com `?v=`).
 - `README.md`: seção sobre o campo `palavra`, o dicionário e o script, e o crédito à lista de origem.
 

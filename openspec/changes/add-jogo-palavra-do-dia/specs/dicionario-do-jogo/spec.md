@@ -14,7 +14,7 @@ O dicionário MUST ficar versionado no repositório, em um arquivo por tamanho d
 - **THEN** `dist/dicionario/` contém os arquivos de 4 a 10 letras e o build conclui
 
 #### Scenario: Site em execução
-- **WHEN** a pessoa joga em `/jogo/`
+- **WHEN** a pessoa joga em `/palavra-do-dia/`
 - **THEN** o dicionário vem do próprio site, sem requisição para outros domínios
 
 ### Requirement: Formato dos arquivos
