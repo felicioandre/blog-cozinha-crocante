@@ -1,0 +1,44 @@
+schema: spec-driven
+
+context: |
+  Projeto: blog de receitas rápidas em pt-BR (Cozinha Crocante), site estático gerado por build.py (Python, sem framework).
+  Todo texto de artefato, receita e mensagem em português do Brasil.
+  Deploy: push na main publica via GitHub Actions (Cloudflare Pages ou GitHub Pages). Mudanças que afetem deploy exigem plano antes de implementar.
+  Validação: python3 build.py --check (não há suíte de testes nem linter).
+  posts.json é a fonte das receitas; slug de receita já publicada não pode mudar; links de afiliado existentes nunca são removidos.
+  Antes de alterar a estrutura do posts.json, mostrar a mudança proposta.
+  Só Mercado Livre é loja de afiliados; novas lojas entram em LOJAS e affiliates.json.
+  Links internos passam por url()/url_abs() (site pode estar em subcaminho).
+  Busca por ingredientes é client-side (static/app.js + style.css): mudou índice ou ids/classes da gaveta, ajustar os três juntos.
+  Fluxo git: branch nova a partir da main atualizada; commits no padrão commitizen; abrir PR ao fazer push.
+
+# Project context (optional)
+# Add only constraints that should guide OpenSpec artifacts and workflows.
+# Include constraints an agent cannot infer by reading the code.
+# Keep general project documentation and discoverable codebase facts out.
+# Example:
+#   context: |
+#     Designs and tasks must cover Windows, macOS, and Linux
+#     Write all artifacts in Spanish
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals under 500 words
+#       - Always state what is out of scope
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+
+# Per-operation guidance (optional)
+# Add advisory guidance for how apply and archive work should be conducted.
+# This is separate from artifact rules above.
+# Example:
+#   operations:
+#     apply:
+#       guidance:
+#         - Keep test summaries concise
+#     archive:
+#       guidance:
+#         - Summarize the archive outcome before finishing
