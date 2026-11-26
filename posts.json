@@ -2024,5 +2024,53 @@
         "busca": "pegador de cozinha"
       }
     ]
+    },
+  {
+    "slug": "pipoca-doce-frigideira",
+    "publicado": "2026-11-26",
+    "titulo": "Pipoca doce de frigideira",
+    "resumo": "Pipoca caramelizada e crocante feita na frigideira funda com tampa, em 10 minutos e com só 3 ingredientes.",
+    "emoji": "🍿",
+    "palavra": "pipoca",
+    "cor": "#fff3cf",
+    "chave": ["milho de pipoca", "açúcar"],
+    "opc": ["canela", "sal"],
+    "tags": ["frigideira", "doce"],
+    "tempo": "10 min",
+    "porcoes": "3 porções",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "1/2 xícara (chá) de milho de pipoca",
+      "3 colheres (sopa) de açúcar",
+      "2 colheres (sopa) de óleo",
+      "1 pitada de sal",
+      "1 pitada de canela em pó (opcional)"
+    ],
+    "passos": [
+      "Numa frigideira funda com tampa, misture o milho, o açúcar, o óleo e o sal ainda com o fogo desligado.",
+      "Tampe e leve ao fogo médio-baixo, sem abrir a tampa.",
+      "Assim que os primeiros grãos começarem a estourar, sacuda a frigideira de leve, com a tampa firme, a cada 10 segundos.",
+      "Quando o intervalo entre os estouros passar de 2 segundos, desligue o fogo e espere mais 30 segundos tampada.",
+      "Destampe com cuidado, afastando o rosto do vapor, e passe a pipoca para uma tigela.",
+      "Polvilhe a canela, misture e espere 3 minutos para o caramelo endurecer e ficar crocante."
+    ],
+    "dica": "Fogo médio-baixo é o segredo: com o fogo alto o açúcar queima antes de o milho estourar todo. Se sentir cheiro de caramelo escuro, desligue na hora.",
+    "produtos": [
+      {
+        "nome": "Frigideira funda",
+        "nota": "Dá espaço para a pipoca crescer sem escapar",
+        "busca": "frigideira funda"
+      },
+      {
+        "nome": "Espátula de silicone",
+        "nota": "Solta o caramelo do fundo sem riscar a panela",
+        "busca": "espatula de silicone"
+      },
+      {
+        "nome": "Pegador de cozinha",
+        "nota": "Ajuda a segurar a tampa quente com segurança",
+        "busca": "pegador de cozinha"
+      }
+    ]
   }
 ]
