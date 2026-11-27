@@ -2072,5 +2072,66 @@
         "busca": "pegador de cozinha"
       }
     ]
+  },
+  {
+    "slug": "bolinho-de-atum-frigideira",
+    "publicado": "2026-11-27",
+    "titulo": "Bolinho de atum na frigideira",
+    "resumo": "Bolinhos dourados de atum com batata, crocantes por fora e macios por dentro, prontos em 25 minutos com ingredientes de despensa.",
+    "emoji": "🐟",
+    "cor": "#e3f1fb",
+    "chave": [
+      "atum",
+      "batata"
+    ],
+    "opc": [
+      "cebola",
+      "salsinha",
+      "limão"
+    ],
+    "tags": [
+      "frigideira",
+      "salgado"
+    ],
+    "tempo": "25 min",
+    "porcoes": "4 porções",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "2 latas de atum (170 g cada), bem escorrido",
+      "2 batatas médias cozidas e amassadas",
+      "1 ovo",
+      "1/2 cebola pequena ralada",
+      "2 colheres (sopa) de salsinha picada",
+      "3 colheres (sopa) de farinha de trigo",
+      "Sal e pimenta-do-reino a gosto",
+      "Óleo para dourar (cerca de 4 colheres de sopa)",
+      "Limão para servir"
+    ],
+    "passos": [
+      "Numa tigela, misture o atum escorrido, a batata amassada, o ovo, a cebola, a salsinha, o sal e a pimenta.",
+      "Acrescente a farinha aos poucos até a massa ficar firme e soltar das mãos.",
+      "Modele bolinhos achatados de cerca de 5 cm, com as mãos levemente untadas.",
+      "Aqueça o óleo em fogo médio numa frigideira antiaderente.",
+      "Doure os bolinhos por 3 a 4 minutos de cada lado, virando uma só vez.",
+      "Escorra em papel-toalha e sirva com gotas de limão."
+    ],
+    "dica": "Escorra bem o atum e deixe a batata esfriar antes de misturar: massa úmida demais desmancha na frigideira. Se isso acontecer, acrescente mais uma colher de farinha.",
+    "produtos": [
+      {
+        "nome": "Frigideira antiaderente",
+        "nota": "Doura por igual com pouco óleo",
+        "busca": "frigideira antiaderente"
+      },
+      {
+        "nome": "Espátula de silicone",
+        "nota": "Vira os bolinhos sem quebrar",
+        "busca": "espatula de silicone"
+      },
+      {
+        "nome": "Ralador",
+        "nota": "Para ralar a cebola bem fininha",
+        "busca": "ralador"
+      }
+    ]
   }
 ]
