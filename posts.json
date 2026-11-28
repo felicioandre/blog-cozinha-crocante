@@ -2133,5 +2133,65 @@
         "busca": "ralador"
       }
     ]
+  },
+  {
+    "slug": "berinjela-crocante-air-fryer",
+    "publicado": "2026-11-28",
+    "titulo": "Berinjela crocante na air fryer",
+    "resumo": "Rodelas de berinjela empanadas com farinha de rosca e queijo ralado, crocantes por fora e macias por dentro, prontas em 20 minutos.",
+    "emoji": "🍆",
+    "cor": "#ece6f5",
+    "chave": [
+      "berinjela",
+      "farinha de rosca"
+    ],
+    "opc": [
+      "queijo ralado",
+      "ovo",
+      "orégano"
+    ],
+    "tags": [
+      "airfryer",
+      "salgado"
+    ],
+    "tempo": "20 min",
+    "porcoes": "3 porções",
+    "nivel": "Fácil",
+    "ingredientes": [
+      "1 berinjela média (cerca de 400 g)",
+      "2 ovos batidos",
+      "1 xícara de farinha de rosca",
+      "3 colheres (sopa) de queijo ralado",
+      "1 colher (chá) de orégano",
+      "Sal e pimenta-do-reino a gosto",
+      "Azeite em spray ou 2 colheres (sopa) de azeite"
+    ],
+    "passos": [
+      "Corte a berinjela em rodelas de 1 cm e tempere com sal. Deixe 5 minutos e seque com papel-toalha.",
+      "Misture a farinha de rosca, o queijo ralado, o orégano e a pimenta num prato fundo.",
+      "Passe cada rodela nos ovos batidos e depois na mistura de farinha, pressionando bem.",
+      "Pré-aqueça a air fryer a 200 °C por 3 minutos.",
+      "Disponha as rodelas em uma só camada, pincele ou borrife azeite e asse por 8 minutos.",
+      "Vire as rodelas, borrife mais azeite e asse por mais 6 a 8 minutos, até dourar.",
+      "Sirva quente, com limão ou molho de iogurte."
+    ],
+    "dica": "Secar as rodelas depois do sal tira o excesso de água e evita que a empanação amoleça. Não sobreponha as fatias para ficarem crocantes dos dois lados.",
+    "produtos": [
+      {
+        "nome": "Air fryer",
+        "nota": "Deixa a empanação sequinha com pouco óleo",
+        "busca": "air fryer"
+      },
+      {
+        "nome": "Pincel culinário",
+        "nota": "Para espalhar o azeite por igual",
+        "busca": "pincel culinario"
+      },
+      {
+        "nome": "Tábua de corte",
+        "nota": "Para fatiar as rodelas com segurança",
+        "busca": "tabua de corte"
+      }
+    ]
   }
 ]
